@@ -7,6 +7,302 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Margin="20 40">
+            <TextBlock Text="{Binding Path=Control.player_turn, StringFormat='Current Turn: Player {0}'}" Foreground="{Binding Path=Control.player_turn_colour}"/>
+            <TextBlock Text=""/>
+            <TextBlock Text=""/>
+            <TextBlock Text="{Binding Path=Control.thescore.team_1_points, StringFormat='Player 1 points: {0}'}" Foreground="Blue"/>
+            <TextBlock Text="Team 1 has won!" Foreground="{Binding Path=Control.player_1_win}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Margin="20 40">
+            <TextBlock Text=""/>
+            <TextBlock Text=""/>
+            <TextBlock Text=""/>
+            <TextBlock Text="{Binding Path=Control.thescore.team_2_points, StringFormat='Player 2 points: {0}'}" Foreground="Red"/>
+            <TextBlock Text="Team 2 has won!" Foreground="{Binding Path=Control.player_2_win}"/>
+        </StackPanel>
+
+        <Grid Grid.Column="1" Margin="20 40">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- row 0 -->
+            <Button x:Name="Button0_0" Grid.Column="0" Grid.Row="0" Click="Click_0_0">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[0].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[0].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[0].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Button1_0" Grid.Column="1" Grid.Row="0" Click="Click_1_0">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[1].Piece_colour , UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[1].Team_colour , UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[1].Str_Strength , UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Button2_0" Grid.Column="2" Grid.Row="0" Click="Click_2_0">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[2].Piece_colour , UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[2].Team_colour , UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[2].Str_Strength , UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Button3_0" Grid.Column="3" Grid.Row="0" Click="Click_3_0">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[3].Piece_colour , UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[3].Team_colour , UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[3].Str_Strength , UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Button4_0" Grid.Column="4" Grid.Row="0" Click="Click_4_0">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[4].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[4].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[4].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <!-- row 1 -->
+            <Button x:Name="Button0_1" Grid.Column="0" Grid.Row="1" Click="Click_0_1">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[5].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[5].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[5].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Button1_1" Grid.Column="1" Grid.Row="1" Click="Click_1_1">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[6].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[6].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[6].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+                <Button x:Name="Button2_1" Grid.Column="2" Grid.Row="1" Click="Click_2_1">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[7].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[7].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[7].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+                <Button x:Name="Button3_1" Grid.Column="3" Grid.Row="1" Click="Click_3_1">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[8].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[8].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[8].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Button4_1" Grid.Column="4" Grid.Row="1" Click="Click_4_1">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[9].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[9].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[9].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <!-- row 2 -->
+            <Button x:Name="Button0_2" Grid.Column="0" Grid.Row="2" Click="Click_0_2">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[10].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[10].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[10].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Button1_2" Grid.Column="1" Grid.Row="2" Click="Click_1_2">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[11].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[11].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[11].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+                <Button x:Name="Button2_2" Grid.Column="2" Grid.Row="2" Click="Click_2_2">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[12].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[12].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[12].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Button3_2" Grid.Column="3" Grid.Row="2" Click="Click_3_2">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[13].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[13].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[13].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Button4_2" Grid.Column="4" Grid.Row="2" Click="Click_4_2">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[14].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[14].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[14].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <!-- row 3 -->
+                <Button x:Name="Button0_3" Grid.Column="0" Grid.Row="3" Click="Click_0_3">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[15].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[15].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[15].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Button1_3" Grid.Column="1" Grid.Row="3" Click="Click_1_3">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[16].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[16].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[16].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+                <Button x:Name="Button2_3" Grid.Column="2" Grid.Row="3" Click="Click_2_3">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[17].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[17].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[17].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Button3_3" Grid.Column="3" Grid.Row="3" Click="Click_3_3">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[18].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[18].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[18].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Button4_3" Grid.Column="4" Grid.Row="3" Click="Click_4_3">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[19].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[19].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[19].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <!-- row 4 -->
+            <Button x:Name="Button0_4" Grid.Column="0" Grid.Row="4" Click="Click_0_4">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[20].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[20].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[20].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Button1_4" Grid.Column="1" Grid.Row="4" Click="Click_1_4">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[21].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[21].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[21].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Button2_4" Grid.Column="2" Grid.Row="4" Click="Click_2_4">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[22].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[22].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[22].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Button3_4" Grid.Column="3" Grid.Row="4" Click="Click_3_4">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[23].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[23].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[23].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="Button4_4" Grid.Column="4" Grid.Row="4" Click="Click_4_4">
+                <Button.Content>
+                    <Grid>
+                        <Polygon Stretch="Fill"  Points="5,25 25,25 25,5 45,5 45,25 65,25 65,45 45,45 45,65 25,65 25,45 5,45" Fill="{Binding Path=thegrid.Grid_List[24].Piece_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"></Polygon>
+                        <Rectangle Fill="{Binding Path=thegrid.Grid_List[24].Team_colour, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="2"></Rectangle>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=thegrid.Grid_List[24].Str_Strength, UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="4" Background="Transparent"></TextBlock>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+        </Grid>
+
     </Grid>
 </Window>

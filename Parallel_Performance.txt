@@ -1,0 +1,8 @@
+Depth 1: 
+	Sequential:2344
+
+Depth 2:
+	Sequential:16063 (reduced use of Generate_Board), 253, 163 (removed debug.writeline)
+
+Depth 3:
+	Sequential:
