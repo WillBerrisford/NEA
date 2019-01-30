@@ -10,5 +10,14 @@ namespace NEA
     {
         protected string AccountName { get; set; }
         protected bool SignedIn { get; set; }
+        private string Password { get; set; }
+
+        public Account()
+        { }
+
+        public void Create()
+        {
+
+        }
     }
 }

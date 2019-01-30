@@ -13,15 +13,17 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0" Margin="20 40">
+        <StackPanel Grid.Column="0" Margin="20 40" Background="DarkRed">
             <TextBlock Text="{Binding Path=Control.player_turn, StringFormat='Current Turn: Player {0}'}" Foreground="{Binding Path=Control.player_turn_colour}"/>
             <TextBlock Text=""/>
             <TextBlock Text=""/>
             <TextBlock Text="{Binding Path=Control.thescore.team_1_points, StringFormat='Player 1 points: {0}'}" Foreground="Blue"/>
             <TextBlock Text="Team 1 has won!" Foreground="{Binding Path=Control.player_1_win}"/>
+            <TextBox Grid.Row="1" Name="UserNameTextBox" Margin="5" Text="User" Foreground="Black"/>
+            <TextBox Grid.Row="1" Name="PassWordTextBox" Margin="5" Text="Pass" Foreground="Black"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="2" Margin="20 40">
+        <StackPanel Grid.Column="2" Margin="20 40" Background="DarkBlue">
             <TextBlock Text=""/>
             <TextBlock Text=""/>
             <TextBlock Text=""/>
