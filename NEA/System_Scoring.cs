@@ -58,7 +58,7 @@ namespace NEA
             {
                 if (possible_grid.Grid_List[i].Get_Team() == 1) //team 1 (blue) is trying to max score
                 {
-                    score = score + 5; //adds 5 points per location owned by team
+                    score = score + 7; //adds 5 points per location owned by team
                     if (possible_grid.Grid_List[i].Get_Occupied() == true) //if occupied by a piece it adds the strength of the piece onto the score
                     {
                         score = score + 2*(possible_grid.Grid_List[i].Get_Strength());
@@ -67,7 +67,7 @@ namespace NEA
 
                 else if (possible_grid.Grid_List[i].Get_Team() == 2) //team 2 (red) is trying to minimise score
                 {
-                    score = score - 5; //adds 5 points per location owned by team
+                    score = score - 7; //adds 5 points per location owned by team
                     if (possible_grid.Grid_List[i].Get_Occupied() == true)
                     {
                         score = score - 2*(possible_grid.Grid_List[i].Get_Strength());

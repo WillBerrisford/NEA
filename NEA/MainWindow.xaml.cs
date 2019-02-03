@@ -26,8 +26,9 @@ namespace NEA
         public MainWindow()
         {
             this.DataContext = Data;
-            Database_Connect Database = new Database_Connect();
-            Database.add_user("ME", "1234");
+            Account Account = new Account();
+            Account.add_user("ME", "1234");
+            Account.SignIn("ME", "1234");
             InitializeComponent();          
         }
 

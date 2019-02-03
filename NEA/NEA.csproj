@@ -61,6 +61,7 @@
     <Compile Include="DataView.cs" />
     <Compile Include="Flow_Control.cs" />
     <Compile Include="Location.cs" />
+    <Compile Include="Salt_Hash.cs" />
     <Compile Include="Tree_Node.cs" />
     <Compile Include="Score.cs" />
     <Compile Include="Squares.cs" />

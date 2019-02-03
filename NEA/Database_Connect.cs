@@ -43,24 +43,5 @@ namespace NEA
             return null;
         }
 
-        public void add_user(string name, string hash)
-        {
-            SqlConnection connection = Connect();
-            string command_text = @"INSERT INTO Users_2 (UserNames, PassHash) " +
-                "Values ('" + name + "', '" + hash + "')";
-            try
-            {
-                SqlCommand command = new SqlCommand(command_text, connection);
-                connection.Open();
-                SqlDataReader read = command.ExecuteReader();
-                connection.Close();
-            }
-
-            catch(Exception error)
-            {
-                Debug.WriteLine(error.ToString());
-            }
-
-        }
     }
 }
