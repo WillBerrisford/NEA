@@ -28,7 +28,7 @@ namespace NEA
             this.DataContext = Data;
             Account Account = new Account();
             Account.add_user("ME", "1234");
-            Account.SignIn("ME", "1234");
+            //Account.SignIn("ME", "1234");
             InitializeComponent();          
         }
 

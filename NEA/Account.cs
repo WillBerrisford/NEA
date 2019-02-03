@@ -20,7 +20,7 @@ namespace NEA
         
         public void SignIn(string name, string password)
         {
-            string hash = Hash(password);
+            Salt_Hash Hash_Salt = Hash(password);
             string command_text = @"SELECT PassHash FROM Users_2 " +
                 "WHERE UserNames = @name";
 
@@ -35,7 +35,7 @@ namespace NEA
                 {
                     while (reader.Read())
                     {
-                        if (hash == reader["PassHash"].ToString())
+                        if (Hash_Salt.Get_Salt() == reader["PassHash"].ToString())
                         {
                             SignedIn = true;
                             Debug.WriteLine("User Has been signed in");
@@ -63,14 +63,15 @@ namespace NEA
             string Pass_Hash = Convert.ToBase64String(hashed_bytes);
             Debug.WriteLine(Pass_Hash);
 
-            Salt_Hash Salt_and_Hash = new Salt_Hash(salt.ToString(), Pass_Hash);
+            Salt_Hash Salt_and_Hash = new Salt_Hash(Convert.ToBase64String(salt), Pass_Hash);
             return Salt_and_Hash;
+        }
 
         public void add_user(string name, string password)
         {
-            string hash = Hash(password);
-            string command_text = @"INSERT INTO Users_2 (UserNames, PassHash) " +
-                "Values ('" + name + "', '" + hash + "')";
+            Salt_Hash Hash_Salt = Hash(password);
+            string command_text = @"INSERT INTO Users_2 (UserNames, PassHash, Salt) " +
+                "Values ('" + name + "', '" + Hash_Salt.Get_Hash() + "', '" + Hash_Salt.Get_Salt() + "')";
 
             SqlConnection connection = Connect();
             try
