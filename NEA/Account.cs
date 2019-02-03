@@ -51,7 +51,7 @@ namespace NEA
             }
         }
 
-        public string Hash(string password)
+        public Salt_Hash Hash(string password)
         {
             byte[] salt;
             new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
@@ -62,8 +62,9 @@ namespace NEA
             Array.Copy(PBKDF2_Salted_Hash.GetBytes(20), 0, hashed_bytes, 16, 20);
             string Pass_Hash = Convert.ToBase64String(hashed_bytes);
             Debug.WriteLine(Pass_Hash);
-            return Pass_Hash;
-        }
+
+            Salt_Hash Salt_and_Hash = new Salt_Hash(salt.ToString(), Pass_Hash);
+            return Salt_and_Hash;
 
         public void add_user(string name, string password)
         {
