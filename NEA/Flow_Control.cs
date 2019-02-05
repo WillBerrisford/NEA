@@ -203,6 +203,11 @@ namespace NEA
             }
         }
 
+        public void Login_Click(string name, string password)
+        {
+            
+        }
+
         public void Click_Event_0_0(Board_Grid thegrid, Flow_Control Control) //activates when button 0_0 is clicked
         {                       
             Location loc = new Location(0, 0);

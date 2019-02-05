@@ -26,10 +26,17 @@ namespace NEA
         public MainWindow()
         {
             this.DataContext = Data;
-            Account Account = new Account();
-            Account.add_user("ME", "1234");
-            Account.SignIn("ME", "1234");
             InitializeComponent();          
+        }
+
+        void Login_Button(object sender, RoutedEventArgs e)
+        {
+            Data.theaccount.SignIn(UserNameTextBox.ToString(), PassWordTextBox.ToString());
+        }
+
+        void Sign_Up_Button(object sender, RoutedEventArgs e)
+        {
+            Data.theaccount.add_user(UserNameTextBox.ToString(), PassWordTextBox.ToString());
         }
 
         void Click_0_0(object sender, RoutedEventArgs e) //activated when button 0_0 is clicked

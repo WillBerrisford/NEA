@@ -10,11 +10,14 @@ namespace NEA
     {
         public Board_Grid thegrid { get; set; }
         public Flow_Control Control { get; set; }
+        public Account theaccount { get; set; }
 
         public DataView()
         {
             thegrid = new Board_Grid();
             Control = new Flow_Control();
+            theaccount = new Account();
+            
         }
 
         public Board_Grid Get_Grid()
