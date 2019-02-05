@@ -19,8 +19,17 @@
             <TextBlock Text=""/>
             <TextBlock Text="{Binding Path=Control.thescore.team_1_points, StringFormat='Player 1 points: {0}'}" Foreground="Blue"/>
             <TextBlock Text="Team 1 has won!" Foreground="{Binding Path=Control.player_1_win}"/>
-            <TextBox Grid.Row="1" Name="UserNameTextBox" Margin="5" Text="User" Foreground="Black"/>
-            <TextBox Grid.Row="1" Name="PassWordTextBox" Margin="5" Text="Pass" Foreground="Black"/>
+            <TextBlock Text=""/>
+            <TextBlock Text=""/>
+            <TextBlock Text="{Binding Path=theaccount.AccountName}"/>
+            <TextBlock Text=""/>
+            <TextBlock Text=""/>
+            <TextBlock Text="Username"/>
+            <TextBox Grid.Row="1" Name="UserNameTextBox" Margin="5" Background="Gray"/>
+            <TextBlock Text=""/>
+            <TextBlock Text=""/>
+            <TextBlock Text="Password"/>
+            <TextBox Grid.Row="1" Name="PassWordTextBox" Margin="5" Background="Gray"/>
             <Button Name="LoginButton" Click="Login_Button" Height="30" Width="100" Background="Gray">
                 <TextBlock Text="Login"/>
             </Button>

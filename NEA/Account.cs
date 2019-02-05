@@ -6,14 +6,15 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.ComponentModel;
 
 namespace NEA
 {
-    class Account : Database_Connect
+    class Account : Database_Connect, INotifyPropertyChanged
     {
-        private string AccountName { get; set; }
+        public string AccountName { get; set; } 
         private string AccountID { get; set; }
-        private bool SignedIn { get; set; }
+        public bool SignedIn { get; set; }
         private string Password { get; set; }
 
         public Account()
@@ -21,7 +22,7 @@ namespace NEA
         
         public void SignIn(string name, string password)
         {
-            string command_text = @"SELECT ID,PassHash,Salt FROM Users_2 " +
+            string command_text = @"SELECT ID,PassHash,Salt,UserNames FROM Users_2 " +
                 "WHERE UserNames = @name";
 
             SqlConnection connection = Connect();
@@ -41,9 +42,12 @@ namespace NEA
                         if (The_Hash == reader["PassHash"].ToString())
                         {
                             SignedIn = true;
-                            AccountName = reader["PassHash"].ToString();
+                            AccountName = reader["UserNames"].ToString();
                             AccountID = reader["ID"].ToString();
                             Debug.WriteLine("Sign in successful");
+
+                            NotifyPropertyChanged("AccountName");
+
                         }
                     }
                 }
@@ -99,7 +103,7 @@ namespace NEA
                 {
                     while (reader.Read())
                     {
-
+                        Debug.WriteLine(reader["UserNames"].ToString());
                         if (name == reader["UserNames"].ToString())
                         {
                             return false;
@@ -109,7 +113,7 @@ namespace NEA
                             return true;
                         }
                     }
-                    return false;
+                    return true;
                 }
             }
 
@@ -145,6 +149,16 @@ namespace NEA
             else
             {
                 Debug.WriteLine("\nUsername taken");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged; //Allows properties to change so the UI is updated
+
+        public void NotifyPropertyChanged(string propertyName) //updates ui
+        {
+            if (propertyName != null)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }
