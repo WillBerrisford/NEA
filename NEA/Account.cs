@@ -52,6 +52,7 @@ namespace NEA
             catch (Exception Error)
             {
                 Debug.WriteLine(Error);
+                connection.Close();
             }
         }
 
@@ -85,24 +86,65 @@ namespace NEA
             return Salt_and_Hash;
         }
 
-        public void add_user(string name, string password)
+        public bool check_user(string name)//checks whether a username is already in the table
         {
-            Salt_Hash Hash_Salt = Hash(password, Salt(null, false));
-            string command_text = @"INSERT INTO Users_2 (UserNames, PassHash, Salt) " +
-                "Values ('" + name + "', '" + Hash_Salt.Get_Hash() + "', '" + Hash_Salt.Get_Salt() + "')";
-
+            string command_text = @"SELECT UserNames FROM Users_2 WHERE UserNames='" + name + "'";
             SqlConnection connection = Connect();
             try
-            { 
+            {
                 SqlCommand command = new SqlCommand(command_text, connection);
                 connection.Open();
-                SqlDataReader read = command.ExecuteReader();
-                connection.Close();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        if (name == reader["UserNames"].ToString())
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
             }
 
             catch (Exception error)
             {
                 Debug.WriteLine(error.ToString());
+                return false;
+            }
+        }
+
+        public void add_user(string name, string password)
+        {
+            if (check_user(name) == true)
+            {
+                Salt_Hash Hash_Salt = Hash(password, Salt(null, false));
+                string command_text = @"INSERT INTO Users_2 (UserNames, PassHash, Salt) " +
+                    "Values ('" + name + "', '" + Hash_Salt.Get_Hash() + "', '" + Hash_Salt.Get_Salt() + "')";
+
+                SqlConnection connection = Connect();
+                try
+                {
+                    SqlCommand command = new SqlCommand(command_text, connection);
+                    connection.Open();
+                    SqlDataReader read = command.ExecuteReader();
+                    connection.Close();
+                }
+
+                catch (Exception error)
+                {
+                    Debug.WriteLine(error.ToString());
+                }
+            }
+            else
+            {
+                Debug.WriteLine("\nUsername taken");
             }
         }
     }
