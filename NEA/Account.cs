@@ -92,11 +92,14 @@ namespace NEA
 
         public bool check_user(string name)//checks whether a username is already in the table
         {
-            string command_text = @"SELECT UserNames FROM Users_2 WHERE UserNames='" + name + "'";
+            string command_text = @"SELECT UserNames FROM Users_2 WHERE UserNames=@name";
             SqlConnection connection = Connect();
             try
             {
                 SqlCommand command = new SqlCommand(command_text, connection);
+
+                command.Parameters.AddWithValue("@name", name);
+
                 connection.Open();
 
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -130,12 +133,17 @@ namespace NEA
             {
                 Salt_Hash Hash_Salt = Hash(password, Salt(null, false));
                 string command_text = @"INSERT INTO Users_2 (UserNames, PassHash, Salt) " +
-                    "Values ('" + name + "', '" + Hash_Salt.Get_Hash() + "', '" + Hash_Salt.Get_Salt() + "')";
+                    "Values (@name, @Hash, @Salt)";
 
                 SqlConnection connection = Connect();
                 try
                 {
                     SqlCommand command = new SqlCommand(command_text, connection);
+
+                    command.Parameters.AddWithValue("@name", name);
+                    command.Parameters.AddWithValue("@Hash", Hash_Salt.Get_Hash());
+                    command.Parameters.AddWithValue("@Salt", Hash_Salt.Get_Salt());
+
                     connection.Open();
                     SqlDataReader read = command.ExecuteReader();
                     connection.Close();
@@ -150,6 +158,11 @@ namespace NEA
             {
                 Debug.WriteLine("\nUsername taken");
             }
+        }
+
+        public string Get_ID()
+        {
+            return AccountID;
         }
 
        public string Get_AccountName()

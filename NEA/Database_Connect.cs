@@ -25,13 +25,7 @@ namespace NEA
 
                 SqlConnection connection = new SqlConnection(builder.ConnectionString);
                 return connection;
-                {
-                    /*connection.Open();
-                    Debug.WriteLine("Connected");
-                    connection.Close();
-                    return connection;*/
-
-                }
+                {}
             }
 
             catch (Exception error)

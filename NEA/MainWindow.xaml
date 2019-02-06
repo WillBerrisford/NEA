@@ -24,11 +24,11 @@
             <TextBlock Text="{Binding Path=theaccount.AccountName}"/>
             <TextBlock Text=""/>
             <TextBlock Text=""/>
-            <TextBlock Text="Username"/>
+            <TextBlock Text="Username:"/>
             <TextBox Grid.Row="1" Name="UserNameTextBox" Margin="5" Background="Gray"/>
             <TextBlock Text=""/>
             <TextBlock Text=""/>
-            <TextBlock Text="Password"/>
+            <TextBlock Text="Password:"/>
             <TextBox Grid.Row="1" Name="PassWordTextBox" Margin="5" Background="Gray"/>
             <Button Name="LoginButton" Click="Login_Button" Height="30" Width="100" Background="Gray">
                 <TextBlock Text="Login"/>
@@ -46,8 +46,13 @@
             <TextBlock Text="Team 2 has won!" Foreground="{Binding Path=Control.player_2_win}"/>
             <TextBlock Text=""/>
             <TextBlock Text=""/>
+            <TextBlock Text="Game Name:"/>
+            <TextBox Name="GameNameTextBox" Background="Gray" Margin="5"/>
             <Button Name="SaveGameButton" Click="Save_Game_Button" Height="30" Width="100" Background="Gray">
                 <TextBlock Text="Save Game"/>
+            </Button>
+            <Button Name="LoadGameButton" Click="Load_Game_Button" Height="30" Width="100" Background="Gray">
+                <TextBlock Text="Load Game"/>
             </Button>
         </StackPanel>
 

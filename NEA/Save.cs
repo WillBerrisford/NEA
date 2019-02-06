@@ -20,9 +20,44 @@ namespace NEA
             Data = data;
         }
 
-        public void Save_Game(bool SignedIn, string UserName)
+        public bool Check_Game_Names(string GameName, string UserName)
         {
-            if (SignedIn == true)
+            string command_text = @"SELECT GameName FROM GameData WHERE GameUserID=(SELECT ID FROM Users_2 WHERE UserNames=@UserName)";
+            SqlConnection connection = Connect();
+            try
+            {
+                SqlCommand command = new SqlCommand(command_text, connection);
+                command.Parameters.AddWithValue("@UserName", UserName);
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Debug.WriteLine(reader["GameName"].ToString());
+                        if (GameName == reader["GameName"].ToString())
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                    return true;
+                }
+            }
+
+            catch (Exception error)
+            {
+                Debug.WriteLine(error.ToString());
+                return false;
+            }
+        }
+
+        public void Save_Game(bool SignedIn, string UserName, string ID, string GameName)
+        {
+            if (SignedIn == true && Check_Game_Names(GameName, UserName) == true)
             {
                 XmlSerializer Serialize_xml = new XmlSerializer(Data.GetType());
                 var xml = "";
@@ -36,13 +71,20 @@ namespace NEA
                         Debug.WriteLine("The XML string" + xml);
                     }
                 }
+
+                int i_ID = Convert.ToInt32(ID);
                 SqlConnection connection = Connect();
-                string command_text = @"INSERT INTO GameData (GameInstance, GameUserID) " +
-                    "Values ('" + xml + "', '" + UserName + "')";
+                string command_text = @"INSERT INTO GameData (GameInstance, GameUserName, GameUserID) " +
+                    "Values (@xml, @UserName, @i_ID)";
 
                 try
                 {
                     SqlCommand command = new SqlCommand(command_text, connection);
+
+                    command.Parameters.AddWithValue("@xml", xml);
+                    command.Parameters.AddWithValue("@UserName", UserName);
+                    command.Parameters.AddWithValue("@i_ID", i_ID);
+
                     connection.Open();
                     SqlDataReader read = command.ExecuteReader();
                     connection.Close();
@@ -53,6 +95,53 @@ namespace NEA
                     Debug.WriteLine(error.ToString());
                 }
             }
+        }
+
+        public string Get_XML_String(string GameName, string GameUserID)
+        {
+            string xml_string;
+            string command_text = @"SELECT GameInstance FROM GameData WHERE GameUserID=(SELECT ID FROM Users_2 WHERE ID=@GameUserID)";
+
+            SqlConnection connection = Connect();
+            try
+            {
+                SqlCommand command = new SqlCommand(command_text, connection);
+                command.Parameters.AddWithValue("@GameUserID", Convert.ToInt32(GameUserID));
+                connection.Open();
+
+                using (SqlDataReader dataReader = command.ExecuteReader())
+                {
+                    while (dataReader.Read())
+                    {
+                        Debug.WriteLine(dataReader["UserNames"].ToString());
+                        return xml_string = dataReader["GameInstance"].ToString();
+                    }
+                }
+                return null;
+            }
+
+            catch (Exception error)
+            {
+                Debug.WriteLine(error.ToString());
+                return null;
+            }
+        }
+
+        public DataView Deserialize(string xml_string)
+        {
+            XmlSerializer reader = new XmlSerializer(typeof(DataView));
+            StringReader xml = new StringReader(xml_string);
+            DataView data = (DataView)reader.Deserialize(xml);
+            xml.Close();
+            return data;
+        }
+
+        public DataView Load_Game(string GameName, string GameUserID)
+        {
+
+            string xml_string = Get_XML_String(GameName, GameUserID);
+            DataView Data = Deserialize(xml_string);
+            return Data;
         }
 
     }

@@ -29,20 +29,27 @@ namespace NEA
             InitializeComponent();          
         }
 
+        void Load_Game_Button(object sender, RoutedEventArgs e)
+        {
+            Save Game_Save = new Save(Data);
+            Data = Game_Save.Load_Game(GameNameTextBox.Text, Data.theaccount.Get_ID());
+        }
+
         void Save_Game_Button(object sender, RoutedEventArgs e)
         {
             Save Game_Save = new Save(Data);
-            Game_Save.Save_Game(Data.theaccount.Is_Signed_In(), Data.theaccount.Get_AccountName());
+            Game_Save.Save_Game(Data.theaccount.Is_Signed_In(), Data.theaccount.Get_AccountName(), Data.theaccount.Get_ID(), GameNameTextBox.Text);
         }
 
         void Login_Button(object sender, RoutedEventArgs e)
         {
-            Data.theaccount.SignIn(UserNameTextBox.ToString(), PassWordTextBox.ToString());
+            Debug.WriteLine(UserNameTextBox.Text);
+            Data.theaccount.SignIn(UserNameTextBox.Text, PassWordTextBox.Text);
         }
 
         void Sign_Up_Button(object sender, RoutedEventArgs e)
         {
-            Data.theaccount.add_user(UserNameTextBox.ToString(), PassWordTextBox.ToString());
+            Data.theaccount.add_user(UserNameTextBox.Text, PassWordTextBox.Text);
         }
 
         void Click_0_0(object sender, RoutedEventArgs e) //activated when button 0_0 is clicked
