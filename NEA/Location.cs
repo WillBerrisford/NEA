@@ -7,10 +7,13 @@ using System.Diagnostics;
 
 namespace NEA
 {
-    class Location
+    public class Location
     {
         private int X_coordinate { get; set; } //the x coordinate on the grid
         private int Y_coordinate { get; set; } //the y coordinate on the grid
+
+        public Location()
+        { }
 
         public Location(int X_coord, int Y_coord) //initialised location
         {

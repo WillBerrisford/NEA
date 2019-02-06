@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace NEA
 {
-    class Score : INotifyPropertyChanged
+    public class Score : INotifyPropertyChanged
     {
         public int team_1_points { get; set; } //number of points that team 1 has
         public int team_2_points { get; set; } //number of points that team 2 has

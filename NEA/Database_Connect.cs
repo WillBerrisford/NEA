@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace NEA
 {
-    class Database_Connect
+    public class Database_Connect
     {
         public Database_Connect()
         { }

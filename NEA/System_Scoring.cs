@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NEA
 {
-    class System_Scoring
+    public class System_Scoring
     {
         int score { get; set; }
 

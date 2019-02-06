@@ -32,7 +32,7 @@ namespace NEA
         void Save_Game_Button(object sender, RoutedEventArgs e)
         {
             Save Game_Save = new Save(Data);
-            Game_Save.Save_Game();
+            Game_Save.Save_Game(Data.theaccount.Is_Signed_In(), Data.theaccount.Get_AccountName());
         }
 
         void Login_Button(object sender, RoutedEventArgs e)

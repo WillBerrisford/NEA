@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace NEA
 {
-    class Unit : INotifyPropertyChanged
+    public class Unit : INotifyPropertyChanged
     {
         private Location Unit_location { get; set; } //location of given unit
         private int Unit_Strength { get; set; } //strength of unti
@@ -20,6 +20,9 @@ namespace NEA
         public string Str_Strength { get; set; } //same as Unit_Strength but converted into a string
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public Unit()
+        { }
 
         public Unit(Location Given_location, int Given_strength, bool In_play, int Given_team, string Given_Team_colour, string Given_Piece_colour)
         {

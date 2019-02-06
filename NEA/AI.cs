@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace NEA
 {
-    class AI
+    public class AI
     {
         Location Current_Location { get; set; }
         Location Move_Location { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NEA
 {
-    class DataView //a wrapper class containing the grid and flow control 
+    public class DataView //a wrapper class containing the grid and flow control 
     {
         public Board_Grid thegrid { get; set; }
         public Flow_Control Control { get; set; }

@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace NEA
 {
-    class Flow_Control : INotifyPropertyChanged
+    public class Flow_Control : INotifyPropertyChanged
     {
         public int player_turn { get; set; } //details which players turn it is
         int click_event_no { get; set; } //whether a click event is a select or a move

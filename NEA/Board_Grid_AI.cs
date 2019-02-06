@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace NEA
 {
-    class Board_Grid_AI : INotifyPropertyChanged
+    public class Board_Grid_AI : INotifyPropertyChanged
     {
         public List<Unit> Grid_List { get; set; }  //The Grid_List where all the units are stored
 

@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace NEA
 {
-    class Salt_Hash
+    public class Salt_Hash
     {
         string Salt { get; set; }
         string Hash { get; set; }
+
+        public Salt_Hash()
+        { }
 
         public Salt_Hash(string salt, string hash)
         {

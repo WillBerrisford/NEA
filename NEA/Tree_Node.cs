@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NEA
 {
-    class Tree_Node : IEnumerable<Tree_Node>
+    public class Tree_Node : IEnumerable<Tree_Node>
     {
         Dictionary<int, Tree_Node> Child_Nodes { get; set; }
         public List<Tree_Node> Child_Nodes_List { get; set; }
@@ -22,6 +22,9 @@ namespace NEA
         Location Move_Location { get; set; }
 
         public Tree_Node Parent { get; private set; }
+
+        public Tree_Node()
+        { }
 
         public Tree_Node(Board_Grid_AI Board, Location Current, Location Move, int theid, int thescore, int thedepth, Tree_Node Parent_Node)
         {

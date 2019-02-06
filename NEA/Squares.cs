@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace NEA
 {
-    class Squares
+    public class Squares
     {
         private int Team_one { get; set; } //number of squares controlled by team 1
         private int Team_two { get; set; }//number of squares controlled by team 2

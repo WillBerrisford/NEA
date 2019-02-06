@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -12,25 +13,44 @@ namespace NEA
 {
     class Save : Database_Connect
     {
-        private DataView Data { get; set; }
+        public DataView Data { get; set; }
 
         public Save(DataView data)
         {
             Data = data;
         }
 
-        public void Save_Game()
+        public void Save_Game(bool SignedIn, string UserName)
         {
-            XmlSerializer xsSubmit = new XmlSerializer(typeof(DataView));
-            var xml = "";
-
-            using (var sww = new StringWriter())
+            if (SignedIn == true)
             {
-                using (XmlWriter writer = XmlWriter.Create(sww))
+                XmlSerializer Serialize_xml = new XmlSerializer(Data.GetType());
+                var xml = "";
+
+                using (var string_write = new StringWriter())
                 {
-                    xsSubmit.Serialize(writer, Data);
-                    xml = sww.ToString(); // Your XML
-                    Debug.WriteLine("The XML string" + xml);
+                    using (XmlWriter writer = XmlWriter.Create(string_write))
+                    {
+                        Serialize_xml.Serialize(writer, Data);
+                        xml = string_write.ToString(); // Your XML
+                        Debug.WriteLine("The XML string" + xml);
+                    }
+                }
+                SqlConnection connection = Connect();
+                string command_text = @"INSERT INTO GameData (GameInstance, GameUserID) " +
+                    "Values ('" + xml + "', '" + UserName + "')";
+
+                try
+                {
+                    SqlCommand command = new SqlCommand(command_text, connection);
+                    connection.Open();
+                    SqlDataReader read = command.ExecuteReader();
+                    connection.Close();
+                }
+
+                catch (Exception error)
+                {
+                    Debug.WriteLine(error.ToString());
                 }
             }
         }

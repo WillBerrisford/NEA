@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace NEA
 {
-    class Account : Database_Connect, INotifyPropertyChanged
+    public class Account : Database_Connect, INotifyPropertyChanged
     {
         public string AccountName { get; set; } 
         private string AccountID { get; set; }
@@ -155,6 +155,11 @@ namespace NEA
        public string Get_AccountName()
         {
             return AccountName;
+        }
+
+        public bool Is_Signed_In()
+        {
+            return SignedIn;
         }
 
         public event PropertyChangedEventHandler PropertyChanged; //Allows properties to change so the UI is updated
