@@ -32,7 +32,17 @@ namespace NEA
         void Load_Game_Button(object sender, RoutedEventArgs e)
         {
             Save Game_Save = new Save(Data);
-            Data = Game_Save.Load_Game(GameNameTextBox.Text, Data.theaccount.Get_ID());
+            DataView Data_temp = Game_Save.Load_Game(GameNameTextBox.Text, Data.theaccount.Get_ID());
+            if (Data_temp != null)
+            {
+                Data = Data_temp;
+                this.DataContext = Data;
+                Debug.WriteLine("Load Succeded");
+            }
+            else
+            {
+                Debug.WriteLine("Data Unable to Load");
+            }
         }
 
         void Save_Game_Button(object sender, RoutedEventArgs e)

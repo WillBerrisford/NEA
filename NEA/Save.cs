@@ -51,7 +51,7 @@ namespace NEA
             catch (Exception error)
             {
                 Debug.WriteLine(error.ToString());
-                return false;
+                return true;
             }
         }
 
@@ -74,8 +74,8 @@ namespace NEA
 
                 int i_ID = Convert.ToInt32(ID);
                 SqlConnection connection = Connect();
-                string command_text = @"INSERT INTO GameData (GameInstance, GameUserName, GameUserID) " +
-                    "Values (@xml, @UserName, @i_ID)";
+                string command_text = @"INSERT INTO GameData (GameInstance, GameUserName, GameUserID, GameName) " +
+                    "Values (@xml, @UserName, @i_ID, @GameName)";
 
                 try
                 {
@@ -84,6 +84,7 @@ namespace NEA
                     command.Parameters.AddWithValue("@xml", xml);
                     command.Parameters.AddWithValue("@UserName", UserName);
                     command.Parameters.AddWithValue("@i_ID", i_ID);
+                    command.Parameters.AddWithValue("@GameName", GameName);
 
                     connection.Open();
                     SqlDataReader read = command.ExecuteReader();
@@ -94,6 +95,11 @@ namespace NEA
                 {
                     Debug.WriteLine(error.ToString());
                 }
+            }
+
+            else
+            {
+                Debug.WriteLine("Save Did not work");
             }
         }
 
@@ -113,7 +119,6 @@ namespace NEA
                 {
                     while (dataReader.Read())
                     {
-                        Debug.WriteLine(dataReader["UserNames"].ToString());
                         return xml_string = dataReader["GameInstance"].ToString();
                     }
                 }
@@ -140,8 +145,16 @@ namespace NEA
         {
 
             string xml_string = Get_XML_String(GameName, GameUserID);
-            DataView Data = Deserialize(xml_string);
-            return Data;
+            if (xml_string == null)
+            {
+                Debug.WriteLine("xml_string == null, name may be wrong");
+            }
+            else
+            {
+                DataView Data = Deserialize(xml_string);
+                return Data;
+            }
+            return null;
         }
 
     }

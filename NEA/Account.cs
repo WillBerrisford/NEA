@@ -13,7 +13,7 @@ namespace NEA
     public class Account : Database_Connect, INotifyPropertyChanged
     {
         public string AccountName { get; set; } 
-        private string AccountID { get; set; }
+        public string AccountID { get; set; }
         public bool SignedIn { get; set; }
         private string Password { get; set; }
 
