@@ -44,6 +44,11 @@
             <TextBlock Text=""/>
             <TextBlock Text="{Binding Path=Control.thescore.team_2_points, StringFormat='Player 2 points: {0}'}" Foreground="Red"/>
             <TextBlock Text="Team 2 has won!" Foreground="{Binding Path=Control.player_2_win}"/>
+            <TextBlock Text=""/>
+            <TextBlock Text=""/>
+            <Button Name="SaveGameButton" Click="Save_Game_Button" Height="30" Width="100" Background="Gray">
+                <TextBlock Text="Save Game"/>
+            </Button>
         </StackPanel>
 
         <Grid Grid.Column="1" Margin="20 40">

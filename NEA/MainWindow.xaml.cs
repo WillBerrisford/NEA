@@ -29,6 +29,12 @@ namespace NEA
             InitializeComponent();          
         }
 
+        void Save_Game_Button(object sender, RoutedEventArgs e)
+        {
+            Save Game_Save = new Save(Data);
+            Game_Save.Save_Game();
+        }
+
         void Login_Button(object sender, RoutedEventArgs e)
         {
             Data.theaccount.SignIn(UserNameTextBox.ToString(), PassWordTextBox.ToString());

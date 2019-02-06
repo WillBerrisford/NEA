@@ -152,6 +152,11 @@ namespace NEA
             }
         }
 
+       public string Get_AccountName()
+        {
+            return AccountName;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged; //Allows properties to change so the UI is updated
 
         public void NotifyPropertyChanged(string propertyName) //updates ui
