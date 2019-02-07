@@ -15,10 +15,15 @@ namespace NEA
         public string AccountName { get; set; } 
         public string AccountID { get; set; }
         public bool SignedIn { get; set; }
-        private string Password { get; set; }
+        public string Password { get; set; }
 
         public Account()
         { }
+
+        public void Backup_Account(string name, string id, bool signed_in, string password)
+        {
+
+        }
         
         public void SignIn(string name, string password)
         {
@@ -44,6 +49,7 @@ namespace NEA
                             SignedIn = true;
                             AccountName = reader["UserNames"].ToString();
                             AccountID = reader["ID"].ToString();
+                            Password = password; 
                             Debug.WriteLine("Sign in successful");
 
                             NotifyPropertyChanged("AccountName");
@@ -158,6 +164,11 @@ namespace NEA
             {
                 Debug.WriteLine("\nUsername taken");
             }
+        }
+
+        public string Get_Password()
+        {
+            return Password;
         }
 
         public string Get_ID()

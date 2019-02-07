@@ -106,13 +106,14 @@ namespace NEA
         public string Get_XML_String(string GameName, string GameUserID)
         {
             string xml_string;
-            string command_text = @"SELECT GameInstance FROM GameData WHERE GameUserID=(SELECT ID FROM Users_2 WHERE ID=@GameUserID)";
+            string command_text = @"SELECT GameInstance FROM GameData WHERE GameUserID=@GameUserID AND GameName=@GameName";
 
             SqlConnection connection = Connect();
             try
             {
                 SqlCommand command = new SqlCommand(command_text, connection);
                 command.Parameters.AddWithValue("@GameUserID", Convert.ToInt32(GameUserID));
+                command.Parameters.AddWithValue("@GameName", GameName);
                 connection.Open();
 
                 using (SqlDataReader dataReader = command.ExecuteReader())

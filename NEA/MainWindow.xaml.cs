@@ -21,7 +21,7 @@ namespace NEA
     public partial class MainWindow : Window
     {
         DataView Data = new DataView(); //starts new DataView class
-       // Database_Connect Database = new Database_Connect();
+        Account_Data Backup = new Account_Data();
 
         public MainWindow()
         {
@@ -37,6 +37,7 @@ namespace NEA
             {
                 Data = Data_temp;
                 this.DataContext = Data;
+                Data.theaccount.SignIn(Backup.Get_Name(), Backup.Get_Password());
                 Debug.WriteLine("Load Succeded");
             }
             else
@@ -55,6 +56,7 @@ namespace NEA
         {
             Debug.WriteLine(UserNameTextBox.Text);
             Data.theaccount.SignIn(UserNameTextBox.Text, PassWordTextBox.Text);
+            Backup = new Account_Data(Data.theaccount.Get_AccountName(), Data.theaccount.Get_ID(), Data.theaccount.Is_Signed_In(), Data.theaccount.Get_Password());
         }
 
         void Sign_Up_Button(object sender, RoutedEventArgs e)
