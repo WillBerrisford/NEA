@@ -16,7 +16,7 @@ namespace NEA
         public string AccountID { get; set; }
         public bool SignedIn { get; set; }
         public string Password { get; set; }
-        public List<string> GameList { get; set; }
+        public List<GameListDisplay> GameList { get; set; }
 
         public Account()
         { }
@@ -54,12 +54,13 @@ namespace NEA
                             Debug.WriteLine("Sign in successful");
 
                             NotifyPropertyChanged("AccountName");
+                            NotifyPropertyChanged("GameList");
 
                         }
                     }
                 }
                 connection.Close();
-                Get_Game_List(name);
+                GameList = Get_Game_List(name);
             }
             catch (Exception Error)
             {
@@ -168,23 +169,23 @@ namespace NEA
             }
         }
 
-        public List<string> Get_Game_List(string GameUserID)
+        public List<GameListDisplay> Get_Game_List(string GameUserID)
         {
-            List<string> Name_List = new List<string>();
-            string command_text = @"SELECT GameName FROM GameData WHERE GameUserID=@GameUserID";
+            List<GameListDisplay> Name_List = new List<GameListDisplay>();
+            string command_text = @"SELECT GameName FROM GameData WHERE GameUserName = @ID";
 
             SqlConnection connection = Connect();
             try
             {
                 SqlCommand command = new SqlCommand(command_text, connection);
-                command.Parameters.AddWithValue("@GameUserID", Convert.ToInt32(GameUserID));
+                command.Parameters.AddWithValue("@ID", GameUserID);
                 connection.Open();
 
                 using (SqlDataReader dataReader = command.ExecuteReader())
                 {
                     while (dataReader.Read())
                     {
-                        Name_List.Add(dataReader["GameName"].ToString());
+                        Name_List.Add(new GameListDisplay(dataReader["GameName"].ToString()));
                         NotifyPropertyChanged("Name_List");
                     }
                     return Name_List;

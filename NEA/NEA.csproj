@@ -62,6 +62,7 @@
     <Compile Include="DataView.cs" />
     <Compile Include="Data_Save.cs" />
     <Compile Include="Flow_Control.cs" />
+    <Compile Include="GameListDisplay.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Salt_Hash.cs" />
     <Compile Include="Save.cs" />
