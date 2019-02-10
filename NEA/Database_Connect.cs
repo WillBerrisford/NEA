@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
 using System.Diagnostics;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 
 namespace NEA
 {
@@ -13,17 +14,18 @@ namespace NEA
         public Database_Connect()
         { }
 
-        public SqlConnection Connect()
+        public MySqlConnection Connect()
         { 
             try
             {
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                builder.DataSource = "192.168.1.73,3306";
+                MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder();
+                /*builder.Server = "192.168.1.73,3306";
                 builder.UserID = "client";
                 builder.Password = "Nu&PIO5yZD43DkZ#fx#0";
-                builder.InitialCatalog = "NEA";
+                builder.Database = "NEA";*/
+                string connection_string = "Server = 192.168.1.73; Port = 3306; Database = NEA; Uid = client; Pwd = Nu&PIO5yZD43DkZ#fx#0;";
 
-                SqlConnection connection = new SqlConnection(builder.ConnectionString);
+                MySqlConnection connection = new MySqlConnection(connection_string);
                 return connection;
                 {}
             }
