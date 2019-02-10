@@ -18,9 +18,9 @@ namespace NEA
             try
             {
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                builder.DataSource = "DESKTOP-26UCP1R";
-                builder.UserID = "test";
-                builder.Password = "test";
+                builder.DataSource = "192.168.1.73,3306";
+                builder.UserID = "client";
+                builder.Password = "Nu&PIO5yZD43DkZ#fx#0";
                 builder.InitialCatalog = "NEA";
 
                 SqlConnection connection = new SqlConnection(builder.ConnectionString);
