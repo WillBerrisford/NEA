@@ -29,6 +29,12 @@ namespace NEA
             InitializeComponent();          
         }
 
+        void Display_Game_Name_Grid()
+        {
+            GameNameDataGrid.DataContext = Data.theaccount.Get_Game_List(Data.theaccount.Get_ID());
+            GameNameDataGrid.Items.Refresh();
+        }
+
         void Load_Game_Button(object sender, RoutedEventArgs e)
         {
             Save Game_Save = new Save(Data);
@@ -50,6 +56,7 @@ namespace NEA
         {
             Save Game_Save = new Save(Data);
             Game_Save.Save_Game(Data.theaccount.Is_Signed_In(), Data.theaccount.Get_AccountName(), Data.theaccount.Get_ID(), GameNameTextBox.Text);
+            Data.theaccount.SignIn(Backup.Get_Name(), Backup.Get_Password());
         }
 
         void Login_Button(object sender, RoutedEventArgs e)
@@ -57,6 +64,7 @@ namespace NEA
             Debug.WriteLine(UserNameTextBox.Text);
             Data.theaccount.SignIn(UserNameTextBox.Text, PassWordTextBox.Text);
             Backup = new Account_Data(Data.theaccount.Get_AccountName(), Data.theaccount.Get_ID(), Data.theaccount.Is_Signed_In(), Data.theaccount.Get_Password());
+            //Display_Game_Name_Grid();
         }
 
         void Sign_Up_Button(object sender, RoutedEventArgs e)

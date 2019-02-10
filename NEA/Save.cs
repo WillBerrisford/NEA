@@ -67,7 +67,7 @@ namespace NEA
                     using (XmlWriter writer = XmlWriter.Create(string_write))
                     {
                         Serialize_xml.Serialize(writer, Data);
-                        xml = string_write.ToString(); // Your XML
+                        xml = string_write.ToString();
                         Debug.WriteLine("The XML string" + xml);
                     }
                 }
@@ -120,6 +120,7 @@ namespace NEA
                 {
                     while (dataReader.Read())
                     {
+                        Debug.WriteLine(dataReader["GameInstance"].ToString());
                         return xml_string = dataReader["GameInstance"].ToString();
                     }
                 }

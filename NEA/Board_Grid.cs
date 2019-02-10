@@ -21,8 +21,11 @@ namespace NEA
             return Grid_List;
         }
 
-        //initialises the grid
         public Board_Grid()
+        { }
+
+        //initialises the grid
+        public Board_Grid(bool run)
         {
             Grid_List = new List<Unit>();
             for (int y = 0; y < 5; y++)
