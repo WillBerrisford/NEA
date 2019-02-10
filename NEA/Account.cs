@@ -5,7 +5,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 using System.ComponentModel;
 
 namespace NEA
@@ -31,14 +32,14 @@ namespace NEA
             string command_text = @"SELECT ID,PassHash,Salt,UserNames FROM Users_2 " +
                 "WHERE UserNames = @name";
 
-            SqlConnection connection = Connect();
+            MySqlConnection connection = Connect();
             try
             {
-                SqlCommand command = new SqlCommand(command_text, connection);
+                MySqlCommand command = new MySqlCommand(command_text, connection);
                 command.Parameters.AddWithValue("@name", name);
                 connection.Open();
 
-                using (SqlDataReader reader = command.ExecuteReader())
+                using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -102,16 +103,16 @@ namespace NEA
         public bool check_user(string name)//checks whether a username is already in the table
         {
             string command_text = @"SELECT UserNames FROM Users_2 WHERE UserNames=@name";
-            SqlConnection connection = Connect();
+            MySqlConnection connection = Connect();
             try
             {
-                SqlCommand command = new SqlCommand(command_text, connection);
+                MySqlCommand command = new MySqlCommand(command_text, connection);
 
                 command.Parameters.AddWithValue("@name", name);
 
                 connection.Open();
 
-                using (SqlDataReader reader = command.ExecuteReader())
+                using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -144,17 +145,17 @@ namespace NEA
                 string command_text = @"INSERT INTO Users_2 (UserNames, PassHash, Salt) " +
                     "Values (@name, @Hash, @Salt)";
 
-                SqlConnection connection = Connect();
+                MySqlConnection connection = Connect();
                 try
                 {
-                    SqlCommand command = new SqlCommand(command_text, connection);
+                    MySqlCommand command = new MySqlCommand(command_text, connection);
 
                     command.Parameters.AddWithValue("@name", name);
                     command.Parameters.AddWithValue("@Hash", Hash_Salt.Get_Hash());
                     command.Parameters.AddWithValue("@Salt", Hash_Salt.Get_Salt());
 
                     connection.Open();
-                    SqlDataReader read = command.ExecuteReader();
+                    MySqlDataReader read = command.ExecuteReader();
                     connection.Close();
                 }
 
@@ -174,14 +175,14 @@ namespace NEA
             List<GameListDisplay> Name_List = new List<GameListDisplay>();
             string command_text = @"SELECT GameName FROM GameData WHERE GameUserName = @ID";
 
-            SqlConnection connection = Connect();
+            MySqlConnection connection = Connect();
             try
             {
-                SqlCommand command = new SqlCommand(command_text, connection);
+                MySqlCommand command = new MySqlCommand(command_text, connection);
                 command.Parameters.AddWithValue("@ID", GameUserID);
                 connection.Open();
 
-                using (SqlDataReader dataReader = command.ExecuteReader())
+                using (MySqlDataReader dataReader = command.ExecuteReader())
                 {
                     while (dataReader.Read())
                     {
