@@ -14,7 +14,7 @@ namespace NEA
 
         public DataView()
         {
-            thegrid = new Board_Grid();
+            thegrid = new Board_Grid(true);
             Control = new Flow_Control();
             theaccount = new Account();
             

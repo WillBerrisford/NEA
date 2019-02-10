@@ -54,9 +54,9 @@
             <Button Name="LoadGameButton" Click="Load_Game_Button" Height="30" Width="100" Background="Gray">
                 <TextBlock Text="Load Game"/>
             </Button>
-            <DataGrid ItemsSource="{Binding Source=theaccount.GameList[1]}"  AutoGenerateColumns="False">
+            <DataGrid Name="GameNameDataGrid" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding}"/> 
+                    <DataGridTextColumn Binding="{Binding GameName}"/> 
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
