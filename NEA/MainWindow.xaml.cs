@@ -64,7 +64,7 @@ namespace NEA
             Debug.WriteLine(UserNameTextBox.Text);
             Data.theaccount.SignIn(UserNameTextBox.Text, PassWordTextBox.Text);
             Backup = new Account_Data(Data.theaccount.Get_AccountName(), Data.theaccount.Get_ID(), Data.theaccount.Is_Signed_In(), Data.theaccount.Get_Password());
-            //Display_Game_Name_Grid();
+            Display_Game_Name_Grid();
         }
 
         void Sign_Up_Button(object sender, RoutedEventArgs e)

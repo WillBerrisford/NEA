@@ -44,8 +44,6 @@ namespace NEA
                     while (reader.Read())
                     {
                         string The_Hash = Hash(password, Salt(reader["Salt"].ToString(), true)).Get_Hash();
-                        Debug.WriteLine("The Stored Salt:" + reader["Salt"].ToString());
-                        Debug.WriteLine("Hash1 " + The_Hash + " \nHash2 " + reader["PassHash"].ToString());
                         if (The_Hash == reader["PassHash"].ToString())
                         {
                             SignedIn = true;
@@ -65,6 +63,7 @@ namespace NEA
             }
             catch (Exception Error)
             {
+                Debug.WriteLine("Failed to login");
                 Debug.WriteLine(Error);
                 connection.Close();
             }
