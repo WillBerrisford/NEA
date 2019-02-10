@@ -9,8 +9,8 @@ namespace NEA
 {
     public class Location
     {
-        private int X_coordinate { get; set; } //the x coordinate on the grid
-        private int Y_coordinate { get; set; } //the y coordinate on the grid
+        public int X_coordinate { get; set; } //the x coordinate on the grid
+        public int Y_coordinate { get; set; } //the y coordinate on the grid
 
         public Location()
         { }
@@ -44,9 +44,9 @@ namespace NEA
 
     class Location_Score
     {
-        Location Current_Location { get; set; }
-        Location Move_Location { get; set; }
-        int Score { get; set; }
+        public Location Current_Location { get; set; }
+        public Location Move_Location { get; set; }
+        public int Score { get; set; }
 
         public Location_Score()
         {}

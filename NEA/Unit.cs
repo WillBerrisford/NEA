@@ -10,10 +10,10 @@ namespace NEA
 {
     public class Unit : INotifyPropertyChanged
     {
-        private Location Unit_location { get; set; } //location of given unit
-        private int Unit_Strength { get; set; } //strength of unti
-        private bool Occupied { get; set; } //whether the unit is occupied by a piece
-        private int Team { get; set; } //the team the unit belongs to
+        public Location Unit_location { get; set; } //location of given unit
+        public int Unit_Strength { get; set; } //strength of unti
+        public bool Occupied { get; set; } //whether the unit is occupied by a piece
+        public int Team { get; set; } //the team the unit belongs to
 
         public string Team_colour { get; set; } //colour of the team it belongs to
         public string Piece_colour { get; set; } //colour of the piece (depends on team)
