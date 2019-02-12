@@ -42,7 +42,7 @@ namespace NEA
         }
     }
 
-    class Location_Score
+    public class Location_Score
     {
         public Location Current_Location { get; set; }
         public Location Move_Location { get; set; }

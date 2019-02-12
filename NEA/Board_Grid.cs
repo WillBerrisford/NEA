@@ -8,6 +8,8 @@ using System.Diagnostics;
 
 namespace NEA
 {
+    [System.Serializable]
+    [System.Xml.Serialization.XmlInclude(typeof(List<Unit>))]
     public class Board_Grid : INotifyPropertyChanged
     {
         //List<Unit> Grid_List = new List<Unit>();  ///The Grid_List where all the units are stored

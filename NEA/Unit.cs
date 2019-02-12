@@ -8,6 +8,8 @@ using System.Diagnostics;
 
 namespace NEA
 {
+    [System.Serializable]
+    [System.Xml.Serialization.XmlInclude(typeof(Location))]
     public class Unit : INotifyPropertyChanged
     {
         public Location Unit_location { get; set; } //location of given unit

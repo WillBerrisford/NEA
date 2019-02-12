@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace NEA
 {
@@ -14,20 +15,29 @@ namespace NEA
         public Database_Connect()
         { }
 
-        public MySqlConnection Connect()
+        public SqlConnection Connect()
         { 
             try
             {
-                MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder();
-                /*builder.Server = "192.168.1.73,3306";
+                /*SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder.Server = "";
                 builder.UserID = "client";
                 builder.Password = "Nu&PIO5yZD43DkZ#fx#0";
-                builder.Database = "NEA";*/
-                string connection_string = "Server = 192.168.1.73; Port = 3306; Database = NEA; Uid = client; Pwd = Nu&PIO5yZD43DkZ#fx#0;";
+                builder.Database = "NEA";
+                //string connection_string = "Server = 192.168.1.73; Port = 3306; Database = NEA; Uid = client; Pwd = Nu&PIO5yZD43DkZ#fx#0;";
 
-                MySqlConnection connection = new MySqlConnection(connection_string);
+                SqlConnection connection = new SqlConnection(connection_string);
                 return connection;
-                {}
+                {}*/
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                builder.DataSource = "DESKTOP-26UCP1R";
+                builder.UserID = "test";
+                builder.Password = "test";
+                builder.InitialCatalog = "NEA";
+
+                SqlConnection connection = new SqlConnection(builder.ConnectionString);
+                return connection;
+
             }
 
             catch (Exception error)

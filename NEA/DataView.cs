@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace NEA
 {
+    [System.Serializable]
+    [System.Xml.Serialization.XmlInclude(typeof(Board_Grid))]
+    [System.Xml.Serialization.XmlInclude(typeof(Flow_Control))]
+    [System.Xml.Serialization.XmlInclude(typeof(Account))]
     public class DataView //a wrapper class containing the grid and flow control 
     {
         public Board_Grid thegrid { get; set; }
