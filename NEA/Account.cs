@@ -9,6 +9,7 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.ComponentModel;
 using System.Data.SqlClient;
+using System.Collections.ObjectModel;
 
 namespace NEA
 {
@@ -18,15 +19,11 @@ namespace NEA
         public string AccountID { get; set; }
         public bool SignedIn { get; set; }
         public string Password { get; set; }
-        public List<GameListDisplay> GameList { get; set; }
+        public ObservableCollection<GameListDisplay> GameList { get; set; }
+        public List<string> StringListGameName { get; set; } 
 
         public Account()
         { }
-
-        public void Backup_Account(string name, string id, bool signed_in, string password)
-        {
-
-        }
         
         public void SignIn(string name, string password)
         {
@@ -60,7 +57,7 @@ namespace NEA
                     }
                 }
                 connection.Close();
-                GameList = Get_Game_List(name);
+                Get_Game_List(name);
             }
             catch (Exception Error)
             {
@@ -137,6 +134,14 @@ namespace NEA
             }
         }
 
+        private void Check_User_Error(EventArgs e)
+        {
+            if (CheckNameError != null)
+            {
+                CheckNameError(this, e);
+            }
+        }
+
         public void add_user(string name, string password)
         {
             if (check_user(name) == true)
@@ -167,12 +172,15 @@ namespace NEA
             else
             {
                 Debug.WriteLine("\nUsername taken");
+                ErrorPage Error = new ErrorPage();
+                Error.NameNotExist();
             }
         }
 
-        public List<GameListDisplay> Get_Game_List(string GameUserID)
+        public void Get_Game_List(string GameUserID)
         {
-            List<GameListDisplay> Name_List = new List<GameListDisplay>();
+            ObservableCollection<GameListDisplay> Name_List = new ObservableCollection<GameListDisplay>();
+            List<string> Name_List_String = new List<string>();
             string command_text = @"SELECT GameName FROM GameData WHERE GameUserName = @ID";
 
             SqlConnection connection = Connect();
@@ -187,17 +195,23 @@ namespace NEA
                     while (dataReader.Read())
                     {
                         Name_List.Add(new GameListDisplay(dataReader["GameName"].ToString()));
-                        NotifyPropertyChanged("Name_List");
+                        Name_List_String.Add(dataReader["GameName"].ToString());
+                        NotifyPropertyChanged("GameList");
                     }
-                    return Name_List;
+                    GameList = Name_List;
+                    StringListGameName = Name_List_String;
                 }
             }
 
             catch (Exception error)
             {
                 Debug.WriteLine(error.ToString());
-                return null;
             }
+        }
+
+        public ObservableCollection<GameListDisplay> Return_game_list()
+        {
+            return GameList;
         }
 
         public string Get_Password()

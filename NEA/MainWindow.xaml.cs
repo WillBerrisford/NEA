@@ -26,13 +26,21 @@ namespace NEA
         public MainWindow()
         {
             this.DataContext = Data;
-            InitializeComponent();          
+            InitializeComponent();
+
+
+            Data.theaccount.CheckNameError += new EventHandler(UserNameCheckFail);
+        }
+
+        void UserNameCheckFail(object sender, EventArgs e)
+        {
+            MessageBox.Show("Username does not exist", "Check the username you entered is correct");
         }
 
         void Display_Game_Name_Grid()
         {
-            GameNameDataGrid.DataContext = Data.theaccount.Get_Game_List(Data.theaccount.Get_ID());
-            GameNameDataGrid.Items.Refresh();
+            GameNameList.ItemsSource = null;
+            GameNameList.ItemsSource = Data.theaccount.Return_game_list();
         }
 
         void Load_Game_Button(object sender, RoutedEventArgs e)
@@ -48,7 +56,7 @@ namespace NEA
             }
             else
             {
-                Debug.WriteLine("Data Unable to Load");
+                MessageBox.Show("Game data was unable to load", "Either is not connected to an account or the name is incorrect");
             }
         }
 
@@ -57,6 +65,7 @@ namespace NEA
             Save Game_Save = new Save(Data);
             Game_Save.Save_Game(Data.theaccount.Is_Signed_In(), Data.theaccount.Get_AccountName(), Data.theaccount.Get_ID(), GameNameTextBox.Text);
             Data.theaccount.SignIn(Backup.Get_Name(), Backup.Get_Password());
+            Display_Game_Name_Grid();
         }
 
         void Login_Button(object sender, RoutedEventArgs e)

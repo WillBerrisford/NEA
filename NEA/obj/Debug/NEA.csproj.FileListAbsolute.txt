@@ -65,3 +65,5 @@ C:\Users\Will\Source\Repos\WillBerrisford\NEA\NEA\obj\Debug\NEA.csproj.CopyCompl
 C:\VisualStudio\School\NEA1(10-01-19)\NEA\bin\Debug\Google.Protobuf.dll
 C:\VisualStudio\School\NEA1(10-01-19)\NEA\bin\Debug\MySql.Data.xml
 C:\VisualStudio\School\NEA1(10-01-19)\NEA\obj\Debug\NEA.csproj.CopyComplete
+C:\VisualStudio\School\NEA1(10-01-19)\NEA\obj\Debug\ErrorPage.g.cs
+C:\VisualStudio\School\NEA1(10-01-19)\NEA\obj\Debug\ErrorPage.baml

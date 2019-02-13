@@ -54,11 +54,17 @@
             <Button Name="LoadGameButton" Click="Load_Game_Button" Height="30" Width="100" Background="Gray">
                 <TextBlock Text="Load Game"/>
             </Button>
-            <DataGrid Name="GameNameDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" Foreground="Red">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=GameName}" Header="Game Name"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <ListView Name="GameNameList" Background="Gray">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <TextBlock Text="Name: " />
+                            <TextBlock Text="{Binding GameName}" FontWeight="Bold" />
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+           
         </StackPanel>
 
         <Grid Grid.Column="1" Margin="20 40">
