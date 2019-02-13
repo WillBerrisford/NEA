@@ -27,9 +27,6 @@ namespace NEA
         {
             this.DataContext = Data;
             InitializeComponent();
-
-
-            Data.theaccount.CheckNameError += new EventHandler(UserNameCheckFail);
         }
 
         void UserNameCheckFail(object sender, EventArgs e)

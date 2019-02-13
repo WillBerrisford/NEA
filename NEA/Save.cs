@@ -30,14 +30,14 @@ namespace NEA
         public bool Check_Game_Names(string GameName, string UserName)
         {
             string command_text = @"SELECT GameName FROM GameData WHERE GameUserID=(SELECT ID FROM Users_2 WHERE UserNames=@UserName)";
-            SqlConnection connection = Connect();
+            MySqlConnection connection = Connect();
             try
             {
-                SqlCommand command = new SqlCommand(command_text, connection);
+                MySqlCommand command = new MySqlCommand(command_text, connection);
                 command.Parameters.AddWithValue("@UserName", UserName);
                 connection.Open();
 
-                using (SqlDataReader reader = command.ExecuteReader())
+                using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -80,13 +80,13 @@ namespace NEA
                 }
 
                 int i_ID = Convert.ToInt32(ID);
-                SqlConnection connection = Connect();
+                MySqlConnection connection = Connect();
                 string command_text = @"INSERT INTO GameData (GameInstance, GameUserName, GameUserID, GameName) " +
                     "Values (@xml, @UserName, @i_ID, @GameName)";
 
                 try
                 {
-                    SqlCommand command = new SqlCommand(command_text, connection);
+                    MySqlCommand command = new MySqlCommand(command_text, connection);
 
                     command.Parameters.AddWithValue("@xml", xml);
                     command.Parameters.AddWithValue("@UserName", UserName);
@@ -94,7 +94,7 @@ namespace NEA
                     command.Parameters.AddWithValue("@GameName", GameName);
 
                     connection.Open();
-                    SqlDataReader read = command.ExecuteReader();
+                    MySqlDataReader read = command.ExecuteReader();
                     connection.Close();
                 }
 
@@ -115,15 +115,15 @@ namespace NEA
             string xml_string;
             string command_text = @"SELECT GameInstance FROM GameData WHERE GameUserID=@GameUserID AND GameName=@GameName";
 
-            SqlConnection connection = Connect();
+            MySqlConnection connection = Connect();
             try
             {
-                SqlCommand command = new SqlCommand(command_text, connection);
+                MySqlCommand command = new MySqlCommand(command_text, connection);
                 command.Parameters.AddWithValue("@GameUserID", Convert.ToInt32(GameUserID));
                 command.Parameters.AddWithValue("@GameName", GameName);
                 connection.Open();
 
-                using (SqlDataReader dataReader = command.ExecuteReader())
+                using (MySqlDataReader dataReader = command.ExecuteReader())
                 {
                     while (dataReader.Read())
                     {

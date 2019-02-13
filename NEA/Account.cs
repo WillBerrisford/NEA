@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.ComponentModel;
-using System.Data.SqlClient;
 using System.Collections.ObjectModel;
 
 namespace NEA
@@ -25,25 +24,28 @@ namespace NEA
         public Account()
         { }
         
+        //signs a user into an existing account
         public void SignIn(string name, string password)
         {
             string command_text = @"SELECT ID,PassHash,Salt,UserNames FROM Users_2 " +
                 "WHERE UserNames = @name";
 
-            SqlConnection connection = Connect();
+            MySqlConnection connection = Connect();
             try
             {
-                SqlCommand command = new SqlCommand(command_text, connection);
+                MySqlCommand command = new MySqlCommand(command_text, connection);
                 command.Parameters.AddWithValue("@name", name);
                 connection.Open();
 
-                using (SqlDataReader reader = command.ExecuteReader())
+                using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
+                        //Generates hash value based on password
                         string The_Hash = Hash(password, Salt(reader["Salt"].ToString(), true)).Get_Hash();
                         if (The_Hash == reader["PassHash"].ToString())
                         {
+                            //assigns retrived values to class attributes
                             SignedIn = true;
                             AccountName = reader["UserNames"].ToString();
                             AccountID = reader["ID"].ToString();
@@ -67,55 +69,61 @@ namespace NEA
             }
         }
 
+        //generates salt used to salt the hash
         public byte[] Salt(string The_Salt, bool using_salt)
         {
+            
             if (using_salt == true)
             {
+                //if a salt has been given
                 byte[] salt = Convert.FromBase64String(The_Salt);
                 return salt;
             }
             else
             {
+                //generates a new salt
                 byte[] salt;
                 new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
                 return salt;
             }
         }
 
+        //Generates a salted hash
         public Salt_Hash Hash(string password, byte[] salt)
         {
 
-            var PBKDF2_Salted_Hash = new Rfc2898DeriveBytes(password, salt, 15000);
+            var Salted_Hash = new Rfc2898DeriveBytes(password, salt, 15000);
 
             byte[] hashed_bytes = new byte[36];
             Array.Copy(salt, 0, hashed_bytes, 0, 16);
-            Array.Copy(PBKDF2_Salted_Hash.GetBytes(20), 0, hashed_bytes, 16, 20);
-            string Pass_Hash = Convert.ToBase64String(hashed_bytes);
+            Array.Copy(Salted_Hash.GetBytes(20), 0, hashed_bytes, 16, 20); //copies byte[], string and int values to array
+            string Pass_Hash = Convert.ToBase64String(hashed_bytes); //converts bytes to string
             Debug.WriteLine("\nSalt Used:" + Convert.ToBase64String(salt));
 
-            Salt_Hash Salt_and_Hash = new Salt_Hash(Convert.ToBase64String(salt), Pass_Hash);
+            Salt_Hash Salt_and_Hash = new Salt_Hash(Convert.ToBase64String(salt), Pass_Hash); //creates new salt_hash class with the salt and the hash
             return Salt_and_Hash;
         }
 
         public bool check_user(string name)//checks whether a username is already in the table
         {
             string command_text = @"SELECT UserNames FROM Users_2 WHERE UserNames=@name";
-            SqlConnection connection = Connect();
+            MySqlConnection connection = Connect();
             try
             {
-                SqlCommand command = new SqlCommand(command_text, connection);
+                MySqlCommand command = new MySqlCommand(command_text, connection);
 
                 command.Parameters.AddWithValue("@name", name);
 
                 connection.Open();
 
-                using (SqlDataReader reader = command.ExecuteReader())
+                using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         Debug.WriteLine(reader["UserNames"].ToString());
                         if (name == reader["UserNames"].ToString())
                         {
+                            //user already exists
                             return false;
                         }
                         else
@@ -134,33 +142,28 @@ namespace NEA
             }
         }
 
-        private void Check_User_Error(EventArgs e)
-        {
-            if (CheckNameError != null)
-            {
-                CheckNameError(this, e);
-            }
-        }
-
+        //Adds a new user to the database
         public void add_user(string name, string password)
         {
+            //checks if the name already exists
             if (check_user(name) == true)
             {
+                //generates new salt
                 Salt_Hash Hash_Salt = Hash(password, Salt(null, false));
                 string command_text = @"INSERT INTO Users_2 (UserNames, PassHash, Salt) " +
                     "Values (@name, @Hash, @Salt)";
-
-                SqlConnection connection = Connect();
+                //inserts new values into database
+                MySqlConnection connection = Connect();
                 try
                 {
-                    SqlCommand command = new SqlCommand(command_text, connection);
+                    MySqlCommand command = new MySqlCommand(command_text, connection);
 
                     command.Parameters.AddWithValue("@name", name);
                     command.Parameters.AddWithValue("@Hash", Hash_Salt.Get_Hash());
                     command.Parameters.AddWithValue("@Salt", Hash_Salt.Get_Salt());
 
                     connection.Open();
-                    SqlDataReader read = command.ExecuteReader();
+                    MySqlDataReader read = command.ExecuteReader();
                     connection.Close();
                 }
 
@@ -172,25 +175,24 @@ namespace NEA
             else
             {
                 Debug.WriteLine("\nUsername taken");
-                ErrorPage Error = new ErrorPage();
-                Error.NameNotExist();
             }
         }
 
+        //retrieves list of 
         public void Get_Game_List(string GameUserID)
         {
             ObservableCollection<GameListDisplay> Name_List = new ObservableCollection<GameListDisplay>();
             List<string> Name_List_String = new List<string>();
             string command_text = @"SELECT GameName FROM GameData WHERE GameUserName = @ID";
 
-            SqlConnection connection = Connect();
+            MySqlConnection connection = Connect();
             try
             {
-                SqlCommand command = new SqlCommand(command_text, connection);
+                MySqlCommand command = new MySqlCommand(command_text, connection);
                 command.Parameters.AddWithValue("@ID", GameUserID);
                 connection.Open();
 
-                using (SqlDataReader dataReader = command.ExecuteReader())
+                using (MySqlDataReader dataReader = command.ExecuteReader())
                 {
                     while (dataReader.Read())
                     {

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using MySql.Data;
 using MySql.Data.MySqlClient;
-using System.Data.SqlClient;
 
 namespace NEA
 {
@@ -15,28 +14,28 @@ namespace NEA
         public Database_Connect()
         { }
 
-        public SqlConnection Connect()
+        public MySqlConnection Connect()
         { 
             try
             {
-                /*SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                /*MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder();
                 builder.Server = "";
                 builder.UserID = "client";
                 builder.Password = "Nu&PIO5yZD43DkZ#fx#0";
-                builder.Database = "NEA";
-                //string connection_string = "Server = 192.168.1.73; Port = 3306; Database = NEA; Uid = client; Pwd = Nu&PIO5yZD43DkZ#fx#0;";
+                builder.Database = "NEA";*/
+                string connection_string = "Server = 192.168.1.73; Port = 3306; Database = NEA; Uid = client; Pwd = Nu&PIO5yZD43DkZ#fx#0;";
 
-                SqlConnection connection = new SqlConnection(connection_string);
+                MySqlConnection connection = new MySqlConnection(connection_string);
                 return connection;
-                {}*/
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+
+                /*MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder();
                 builder.DataSource = "DESKTOP-26UCP1R";
                 builder.UserID = "test";
                 builder.Password = "test";
                 builder.InitialCatalog = "NEA";
 
-                SqlConnection connection = new SqlConnection(builder.ConnectionString);
-                return connection;
+                MySqlConnection connection = new MySqlConnection(builder.ConnectionString);
+                return connection;*/
 
             }
 
