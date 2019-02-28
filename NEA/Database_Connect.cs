@@ -23,7 +23,7 @@ namespace NEA
                 builder.UserID = "client";
                 builder.Password = "Nu&PIO5yZD43DkZ#fx#0";
                 builder.Database = "NEA";*/
-                string connection_string = "Server = 192.168.1.73; Port = 3306; Database = NEA; Uid = client; Pwd = Nu&PIO5yZD43DkZ#fx#0;";
+                string connection_string = "Server = 192.168.1.206; Port = 3306; Database = NEA; Uid = client; Pwd = test";
 
                 MySqlConnection connection = new MySqlConnection(connection_string);
                 return connection;
