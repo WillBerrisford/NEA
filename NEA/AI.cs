@@ -170,9 +170,10 @@ namespace NEA
             return Node_0;
         }
 
+        //generates a new tree (down to a depth of 4) from the depth 0 trees in Tree_List
         public List<Tree_Node> Generate_Full_Tree(Board_Grid thegrid, System_Scoring thesystem_score, Score thescore)
         {
-            Board_Grid_AI Copy_thegrid = new Board_Grid_AI(); 
+            Board_Grid_AI Copy_thegrid = new Board_Grid_AI();
             Copy_thegrid.Grid_List = thegrid.Clone(); //copies the grid list from the main grid
 
             List<Tree_Node> Tree_List = Create_Tree_Root(Copy_thegrid, thesystem_score, thescore); //layer depth 1 //creates new set of trees
@@ -181,24 +182,28 @@ namespace NEA
 
             for (int tree_index_1 = 0; tree_index_1 < Tree_List.Count; tree_index_1++) //for each possible move, a tree node is added
             {
-                Tree_List[tree_index_1] = Create_Tree(Tree_List[tree_index_1]); //layer depth 2
+                //adds a new layer of child node to an existing tree node at a depth of 2
+                Tree_List[tree_index_1] = Create_Tree(Tree_List[tree_index_1]); 
 
                for (int tree_index_2 = 0; tree_index_2 < Tree_List[tree_index_1].Child_Nodes_List.Count; tree_index_2++)
                 {
-                    Tree_List[tree_index_1].Child_Nodes_List[tree_index_2] = Create_Tree(Tree_List[tree_index_1].Child_Nodes_List[tree_index_2]); //layer depth = 3
+                    //adds a new layer of child node to an existing tree node at a depth of 3
+                    Tree_List[tree_index_1].Child_Nodes_List[tree_index_2] = Create_Tree(Tree_List[tree_index_1].Child_Nodes_List[tree_index_2]); 
 
                     for (int tree_index_3 = 0; tree_index_3 < Tree_List[tree_index_1].Child_Nodes_List[tree_index_2].Child_Nodes_List.Count; tree_index_3++)
                     {
-                        Tree_List[tree_index_1].Child_Nodes_List[tree_index_2].Child_Nodes_List[tree_index_3] = Create_Tree(Tree_List[tree_index_1].Child_Nodes_List[tree_index_2].Child_Nodes_List[tree_index_3]); //layer depth = 4
+                        //adds a new layer of child node to an existing tree node at a depth of 4
+                        Tree_List[tree_index_1].Child_Nodes_List[tree_index_2].Child_Nodes_List[tree_index_3] = Create_Tree(Tree_List[tree_index_1].Child_Nodes_List[tree_index_2].Child_Nodes_List[tree_index_3]);
                     }
                 }
             }
 
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
-            return Tree_List;
+            return Tree_List; //returns the fully created list
         }
 
+        //creates a list of tree nodes (one node for every possible move on the board)
         List<Tree_Node> Create_Tree_Root(Board_Grid_AI thegrid, System_Scoring thesystem_score, Score thescore)
         {
             List<Tree_Node> New_Tree_List = new List<Tree_Node>();
@@ -215,18 +220,18 @@ namespace NEA
                     {
                         if (Possible_Locations[the_Index].Get_x() > 4 || Possible_Locations[the_Index].Get_x() < 0 || Possible_Locations[the_Index].Get_y() > 4 || Possible_Locations[the_Index].Get_y() < 0) //removes locations that are not on the board
                         {
-                            Possible_Locations.RemoveAt(the_Index);
+                            Possible_Locations.RemoveAt(the_Index); //removes illegal moves
                         }
                     }
 
                     List<Board_Grid_AI> Possible_Boards = Generate_Boards(thegrid, thegrid.Grid_List[i].Get_Location(), Possible_Locations, thescore);
-                    //generates what the grids would look like if the moves were carrued out
+                    //generates a list of every possible legal board (made up of every legal move from the current possition)
                     int Board_Index = Possible_Boards.Count() - 1;
-                    for (int the_Index = Board_Index; the_Index >= 0; the_Index--) //removes invalid boards
+                    for (int the_Index = Board_Index; the_Index >= 0; the_Index--) //runs through all the possible boards
                     {
-                        if (Possible_Boards[the_Index] == null) //removes invalid boards that are null
+                        if (Possible_Boards[the_Index] == null) 
                         {
-                            Possible_Boards.RemoveAt(the_Index);
+                            Possible_Boards.RemoveAt(the_Index); //removes invalid boards that are null
                             Possible_Locations.RemoveAt(the_Index); //removes the locations from possible locations, meaning that that grid position cannot be moved to
                         }
                     }
@@ -244,6 +249,7 @@ namespace NEA
             return New_Tree_List;
         }
 
+        //creates an individual node of a tree using the tree node above it
         Tree_Node Create_Tree(Tree_Node Tree)
         {
             Board_Grid_AI thegrid = new Board_Grid_AI();
@@ -255,9 +261,10 @@ namespace NEA
             int depth = Tree.Get_Depth(); //gets the depth of the parent node
             int turn;
 
-            if (depth % 2 == 0) //determines which team currently has its turn
+            if (depth % 2 == 0) //determines which team currently has its turn 
+            // if even the team = 2, if odd the team = 1
             {
-                turn = 2;
+                turn = 2; 
             }
             else
             {
@@ -267,7 +274,7 @@ namespace NEA
             int id = 0;
             for (int i = 0; i < 25; i++) //runs once for each location on the grid
             {
-                if (thegrid.Grid_List[i].Get_Occupied() == true && thegrid.Grid_List[i].Get_Team() == turn)
+                if (thegrid.Grid_List[i].Get_Occupied() == true && thegrid.Grid_List[i].Get_Team() == turn) //checks that the square is occupied and that it contains a peice on the correct team
                 {
                     List<Location> Possible_Locations = Moves(thegrid, i); //Creates list of possible locations to move to
 
@@ -276,23 +283,26 @@ namespace NEA
                     {
                         if (Possible_Locations[the_Index].Get_x() > 4 || Possible_Locations[the_Index].Get_x() < 0 || Possible_Locations[the_Index].Get_y() > 4 || Possible_Locations[the_Index].Get_y() < 0) //removes locations that are not on the board
                         {
-                            Possible_Locations.RemoveAt(the_Index);
+                            Possible_Locations.RemoveAt(the_Index); //removes the illegal moves
                         }
                     }
 
+                    //generates a list of possible boards from the list of possible locations
                     List<Board_Grid_AI> Possible_Boards = Generate_Boards(thegrid, thegrid.Grid_List[i].Get_Location(), Possible_Locations, thescore);
 
                     int Board_Index = Possible_Boards.Count() - 1;
                     for (int the_Index = Board_Index; the_Index >= 0; the_Index--) //removes invalid boards
                     {
+                        //removes invalid boards with null values
                         if (Possible_Boards[the_Index] == null)
                         {
                             Possible_Boards.RemoveAt(the_Index);
                             Possible_Locations.RemoveAt(the_Index);
                         }
                     }
-                    List<int> Possible_S_Scores = Scores(Possible_Boards, thesystem_score);
+                    List<int> Possible_S_Scores = Scores(Possible_Boards, thesystem_score); //generates possible system scores from the possible boards
 
+                    //adds node to the parent tree
                     for (int index = 0; index < Possible_Boards.Count(); index++)
                     {
                         Tree.Add_Tree(Possible_Boards[index], thegrid.Grid_List[index].Get_Location(), Possible_Locations[index], id, Possible_S_Scores[index]);
@@ -303,69 +313,72 @@ namespace NEA
             return Tree;
         }
 
+        //generates all the possible legal boards from the current location and the list of possible locations
         List<Board_Grid_AI> Generate_Boards(Board_Grid_AI thegrid, Location Current_Location, List<Location> Possible_Locations, Score thescore)
         {
             List<Board_Grid_AI> Possible_Boards = new List<Board_Grid_AI>();
 
-            for (int i = 0; i < Possible_Locations.Count(); i++)
+            for (int i = 0; i < Possible_Locations.Count(); i++) //generates a new board for every possible location
             {
                 Board_Grid_AI New_Grid = new Board_Grid_AI();
-                New_Grid.Grid_List = thegrid.Clone();
-                if (New_Grid.Move(Current_Location, Possible_Locations[i], thescore) == true)
+                New_Grid.Grid_List = thegrid.Clone(); //clones the grid list into a Board_Grid_AI object
+                if (New_Grid.Move(Current_Location, Possible_Locations[i], thescore) == true) //checks if the move is legal
                 {
-                    Possible_Boards.Add(New_Grid);
+                    Possible_Boards.Add(New_Grid); //adds legal move to the list of possible boards
                 }
                 else
                 {
-                    Possible_Boards.Add(null);
+                    Possible_Boards.Add(null); //adds a null value if the move is illegal
                 }
             }
             return Possible_Boards;
         }
 
+        //generates all the possible moves for a particular piece to make
         List<Location> Moves(Board_Grid_AI thegrid, int i)
         {
             List<Location> Possible_Locations = new List<Location>(); //list of locations that it is possible to move to
 
-            int x = thegrid.Grid_List[i].Get_Location().Get_x();
-            int y = thegrid.Grid_List[i].Get_Location().Get_y();
+            int x = thegrid.Grid_List[i].Get_Location().Get_x(); //current x coordinate of unit
+            int y = thegrid.Grid_List[i].Get_Location().Get_y(); //current y coordinate of unit
 
-            y = y + 1;
+            y = y + 1; //the square above the unit
             Possible_Locations.Add(new Location(x, y));
 
-            x = x + 1;
+            x = x + 1; //the square diagonally above and to the right of the unit
             Possible_Locations.Add(new Location(x, y));
 
-            y = y - 1;
+            y = y - 1;//the square to the right of the unit
             Possible_Locations.Add(new Location(x, y));                
 
-            y = y - 1;
+            y = y - 1;//the square diagonally below and to the right of the unit
             Possible_Locations.Add(new Location(x, y));
 
-            x = x - 1;
+            x = x - 1;//the square below the unit
             Possible_Locations.Add(new Location(x, y));
 
-            x = x - 1;
+            x = x - 1;//the square diagonally below and to the left of the unit
             Possible_Locations.Add(new Location(x, y));
 
-            y = y + 1;
+            y = y + 1;//the square to the left of the unit
             Possible_Locations.Add(new Location(x, y));
 
-            y = y + 1;
+            y = y + 1;//the square diagonally above and to the left of the unit
             Possible_Locations.Add(new Location(x, y));
 
             return Possible_Locations;
         }
 
+        //generates a list of possible system scores from a list of possible boards
         List<int> Scores(List<Board_Grid_AI> Board_List, System_Scoring thesystem_score)
         {
             List<int> Possible_Scores_List = new List<int>();
 
-            for (int i = 0; i < Board_List.Count(); i++)
+            for (int i = 0; i < Board_List.Count(); i++) //runs through all the boards
             {
                 Board_Grid_AI Possible_Board = new Board_Grid_AI();
-                Possible_Board.Grid_List = Board_List[i].Clone();
-                System_Scoring Possible_Score = thesystem_score.Clone();
+                Possible_Board.Grid_List = Board_List[i].Clone(); //copies the Grid list to the new object
+                System_Scoring Possible_Score = thesystem_score.Clone();//copies the system score to the new object
 
                 Squares squares = Possible_Board.Count_squares(); //counts number of squares that both teams own
                 Possible_Score.Calculate_Score_AI(Board_List[i]); //adds points based on squares controlled

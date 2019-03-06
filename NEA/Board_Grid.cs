@@ -8,15 +8,13 @@ using System.Diagnostics;
 
 namespace NEA
 {
-    [System.Serializable]
-    [System.Xml.Serialization.XmlInclude(typeof(List<Unit>))]
+    [System.Serializable] 
+    [System.Xml.Serialization.XmlInclude(typeof(List<Unit>))] //allows the object to be serialized into an xml string
     public class Board_Grid : INotifyPropertyChanged
-    {
-        //List<Unit> Grid_List = new List<Unit>();  ///The Grid_List where all the units are stored
+    {     
         public List<Unit> Grid_List { get; set; }  //The Grid_List where all the units are stored
-        //public List<Unit> Grid_List = new List<Unit>();  ///The Grid_List where all the units are stored 
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged; //updates the UI
 
         public List<Unit> get_Grid()
         {
@@ -32,7 +30,7 @@ namespace NEA
             Grid_List = new List<Unit>();
             for (int y = 0; y < 5; y++)
             {
-                for (int x = 0; x < 5; x++)
+                for (int x = 0; x < 5; x++) //runs through all the possible grid squares on the board
                 {
                     //sets default values for non-team squares
                     int Given_Strength = 0;
@@ -41,6 +39,7 @@ namespace NEA
                     string Given_Team_Colour = "white";
                     string Given_Piece_Colour = "white";
 
+                    //sets default values for team 2 squares
                     if (y == 4)
                     {
                         Given_Strength = set_strength(x);
@@ -50,6 +49,7 @@ namespace NEA
                         Given_Piece_Colour = "Red";
                     }
 
+                    //sets default values for team 1 squares
                     else if (y == 0)
                     {
                         Given_Strength = set_strength(x);
@@ -59,16 +59,16 @@ namespace NEA
                         Given_Piece_Colour = "blue";
                     }
 
-                    Location Given_Location = new Location(x, y);
-                    Grid_List.Add(new Unit(Given_Location, Given_Strength, In_Play, Given_Team, Given_Team_Colour, Given_Piece_Colour));
+                    Location Given_Location = new Location(x, y); //creates a location so it can be assigned to a unit
+                    Grid_List.Add(new Unit(Given_Location, Given_Strength, In_Play, Given_Team, Given_Team_Colour, Given_Piece_Colour)); //adds the piece to the board
                 }
             }
         }
 
-        public List<Unit> Clone()
+        public List<Unit> Clone() //clones the grid to a new object
         {
             List<Unit> thegrid = new List<Unit>();
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < 25; i++) //this creates an identical copy of every unit in the current grid and puts it in the new grid
             {
                 Unit theunit = new Unit(Grid_List[i].Get_Location(), Grid_List[i].Get_Strength(), Grid_List[i].Get_Occupied(), Grid_List[i].Get_Team(), Grid_List[i].Get_Colour(), Grid_List[i].Get_Piece());
                 thegrid.Add(theunit);
@@ -81,7 +81,7 @@ namespace NEA
         {
             int Given_Strength;
 
-            if (x == 4 || x == 0)
+            if (x == 4 || x == 0) //
             {
                 Given_Strength = 2;
             }
