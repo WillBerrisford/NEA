@@ -60,22 +60,15 @@
     </TypeIdentifier>
   </Class>
   <Class Name="NEA.Flow_Control">
-    <Position X="12.75" Y="0.5" Width="1.5" />
+    <Position X="13" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAgAAAAAAAAaAIAgQAAMgLggAEAgAAAACAAgCQgAA=</HashCode>
       <FileName>Flow_Control.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="NEA.GameListDisplay">
-    <Position X="2.25" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
-      <FileName>GameListDisplay.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="NEA.Location">
-    <Position X="2.25" Y="5" Width="1.5" />
+    <Position X="2.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgBAAAAAAAAAAAAAAAgEIAAEAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Location.cs</FileName>
@@ -89,7 +82,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="NEA.MainWindow">
-    <Position X="5.75" Y="5" Width="1.5" />
+    <Position X="5.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAAAAAAAAAAAAAAAACAAoAAEBBPAAIAAAEAAAA=</HashCode>
       <FileName>MainWindow.xaml.cs</FileName>
@@ -126,14 +119,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="NEA.System_Scoring">
-    <Position X="2.25" Y="7.75" Width="1.5" />
+    <Position X="2.25" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAAAAAAAAAAIAQAAAAAAACAAAAAAAAAAABE=</HashCode>
       <FileName>System_Scoring.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NEA.Tree_Node">
-    <Position X="11" Y="2.75" Width="1.5" />
+    <Position X="11" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAEAAAAAAAAgBgAACAAQAAMACAIAggsQAQAIAAIAQA=</HashCode>
       <FileName>Tree_Node.cs</FileName>
@@ -141,7 +134,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="NEA.Unit">
-    <Position X="9.25" Y="4" Width="1.5" />
+    <Position X="9.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAACggAEFCoAAIAAAQIAAAAAxAAIAAAIkAAIAAAIQIA=</HashCode>
       <FileName>Unit.cs</FileName>
