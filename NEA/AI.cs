@@ -9,9 +9,9 @@ namespace NEA
 {
     public class AI
     {
-        Location Current_Location { get; set; }
-        Location Move_Location { get; set; }
-        List<Tree_Node> Tree_List { get; set; }
+        Location Current_Location { get; set; } //The current location of the unit that will be moved
+        Location Move_Location { get; set; } //the location that the unit will be moved to
+        List<Tree_Node> Tree_List { get; set; } //the first level of the tree (depth 0)
 
         public AI()
         { }
@@ -28,7 +28,7 @@ namespace NEA
 
         public void Run_AI(Board_Grid thegrid, System_Scoring thesystem_score, Score thescore)
         {
-            List<Tree_Node> Tree_List = Generate_Full_Tree(thegrid, thesystem_score, thescore);
+            List<Tree_Node> Tree_List = Generate_Full_Tree(thegrid, thesystem_score, thescore); //generates a new complete tree
             Tree_Node Best_Node = new Tree_Node(null, null, null, 0, 0, 0, null); //initialises a tree node that can be written over by the best node in the algorithm
             Random rnd = new Random();
 
@@ -45,15 +45,16 @@ namespace NEA
                 if (Score == min) //runs if the score is the same as the minimum score
                 {
                     min = Score;
-                    Best_Node = Tree_List[index]; 
+                    Best_Node = Tree_List[index]; //retrieves the node in which the best score is held
                 }
                 Debug.WriteLine(Score);
             }
             Debug.WriteLine("Used Score:");
             Debug.WriteLine(min);
 
-            Current_Location = Best_Node.Get_Current_Location(); //sets the current location of the piece that needs to be moved
-            Move_Location = Best_Node.Get_Move_Location(); //sets the location which the piece needs to move to
+            //the current and move locations are set according to the best possible move that the player could make
+            Current_Location = Best_Node.Get_Current_Location();
+            Move_Location = Best_Node.Get_Move_Location(); 
         }
 
         public int MiniMax(Tree_Node Tree_Node, bool MaxPLayer) 
@@ -71,11 +72,11 @@ namespace NEA
                 for (int index = 1; index < Tree_Node.Child_Nodes_List.Count(); index++)  //runs for every child node in the given tree
                 {
 
-                    int score_0 = MiniMax(Tree_Node.Child_Nodes_List[index - 1], true); //retrieves the score of the one node
+                    int score_0 = MiniMax(Tree_Node.Child_Nodes_List[index - 1], true); //retrieves the score of the first node in the list of child nodes
 
-                    int score_1 = MiniMax(Tree_Node.Child_Nodes_List[index], true); //retrieves the score of the second node
+                    int score_1 = MiniMax(Tree_Node.Child_Nodes_List[index], true); //retrieves the score of the second node in the list of child nodes
 
-                    if (score_1 > score_0) //checks if score 1 is bigger 
+                    if (score_1 > score_0) //compares the 2 nodes
                     {
                         if (score_1 > max) //if score 1 is bigger
                         {
@@ -85,19 +86,19 @@ namespace NEA
                         { }
                     }
 
-                    else if(score_1 < score_0) //if score 1 is smaller
+                    else if(score_1 < score_0) //compares the 2 nodes
                     {
                         if (score_0 > max)
                         {
-                            max = score_0;
+                            max = score_0; 
                         }
                         else if (score_0 == max)
                         { }
                     }
 
-                    else
+                    else //this runs if the 2 nodes both have the same score
                     {
-                        if (score_1 > max)
+                        if (score_1 > max) //checks that the score is above max
                         {
                             max = score_1;
                         }
@@ -106,7 +107,7 @@ namespace NEA
                     }
                     
                 }
-                return max;
+                return max; //returns the highest possible score from the two individual nodes
             }
 
             else
@@ -116,11 +117,11 @@ namespace NEA
                 for (int index = 1; index < Tree_Node.Child_Nodes_List.Count(); index++) //runs for each child node present in the current parent node
                 {
 
-                    int score_0 = MiniMax(Tree_Node.Child_Nodes_List[index -1], false); 
+                    int score_0 = MiniMax(Tree_Node.Child_Nodes_List[index -1], false); //retrieves the score of the first node in the list of child nodes
 
-                    int score_1 = MiniMax(Tree_Node.Child_Nodes_List[index], false);
+                    int score_1 = MiniMax(Tree_Node.Child_Nodes_List[index], false);//retrieves the score of the second node in the list of child nodes
 
-                    if (score_1 < score_0)
+                    if (score_1 < score_0) //compares the 2 nodes
                     {
                         if (score_1 < min)
                         {
@@ -130,7 +131,7 @@ namespace NEA
                         { }
                     }
 
-                    else if (score_1 > score_0)
+                    else if (score_1 > score_0) //compares the 2 nodes
                     {
                         if (score_0 < min)
                         {
@@ -140,7 +141,7 @@ namespace NEA
                         { }
                     }
 
-                    else
+                    else //runs if both scores are the same
                     {
                         if (score_1 < min)
                         {
@@ -155,11 +156,12 @@ namespace NEA
             }
         }
 
+        //creates a new level 0 tree node (each of these will be in of this list Tree_List because they have a depth of 0)
         public Tree_Node Create_0_Node(List<Tree_Node> Tree_List, Board_Grid thegrid, System_Scoring thesystem_score, Score thescore)
         {
             Board_Grid_AI Copy_thegrid = new Board_Grid_AI(); //creates new grid in the AI version
             Copy_thegrid.Grid_List = thegrid.Clone(); //clones the grid list of the grid
-            Tree_Node Node_0 = new Tree_Node(Copy_thegrid, null, null, 0, thesystem_score.Get_System_Score(), 0, null); //creates a new tree node
+            Tree_Node Node_0 = new Tree_Node(Copy_thegrid, null, null, 0, thesystem_score.Get_System_Score(), 0, null); //creates a new tree node using the system score that was generate using the given Board_Grid
             for (int index = 0; index < Tree_List.Count; index++) //runs for each child node in the tree list
             {
                 Node_0.Add_Tree_Node(Tree_List[index], Tree_List[index].Get_ID()); //adds a new tree node to the child nodes of node 0
