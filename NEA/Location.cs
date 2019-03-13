@@ -15,69 +15,35 @@ namespace NEA
         public Location()
         { }
 
-        public Location(int X_coord, int Y_coord) //initialised location
+        //initialised location according to the X and Y coordinates that it is given
+        public Location(int X_coord, int Y_coord) 
         {
             X_coordinate = X_coord;
             Y_coordinate = Y_coord;
         }
 
-        public void Set_x(int X_coord)
+        //sets the X coordinate individually 
+        public void Set_x(int X_coord) 
         {
             X_coordinate = X_coord;
         }
 
+        //sets the Y coordinate invdividually
         public void Set_y(int Y_coord)
         {
             Y_coordinate = Y_coord;
         }
 
+        //retrieces the X coordinate
         public int Get_x()
         {
             return X_coordinate;
         }
-
+        
+        //retrieves the Y coordinate
         public int Get_y()
         {
             return Y_coordinate;
-        }
-    }
-
-    public class Location_Score
-    {
-        public Location Current_Location { get; set; }
-        public Location Move_Location { get; set; }
-        public int Score { get; set; }
-
-        public Location_Score()
-        {}
-
-        public void Location_Score_Set(Location Current, Location Move, int thescore)
-        {
-            Current_Location = Current;
-            Move_Location = Move;
-            Score = thescore;
-        }
-
-        public Location Get_Current()
-        {
-            return Current_Location;
-        }
-
-        public Location Get_Move()
-        {
-            return Move_Location;
-        }
-
-        public int Get_Score()
-        {
-            return Score;
-        }
-
-        public void Location_Score_Set_All(Location_Score L_S)
-        {
-            Current_Location = L_S.Get_Current();
-            Move_Location = L_S.Get_Move();
-            Score = L_S.Get_Score();
         }
     }
 }
