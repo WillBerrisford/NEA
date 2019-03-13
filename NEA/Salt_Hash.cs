@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace NEA
 {
+    //This class stores the both the salt used in the password proccess as well as the hashed password itself
     public class Salt_Hash
     {
         string Salt { get; set; }
@@ -14,6 +15,7 @@ namespace NEA
         public Salt_Hash()
         { }
 
+        //sets the salt and has using given values
         public Salt_Hash(string salt, string hash)
         {
             Salt = salt;
