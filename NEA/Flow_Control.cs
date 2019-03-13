@@ -32,7 +32,7 @@ namespace NEA
         public Flow_Control()
         { }
 
-        public Flow_Control(bool run) //initialized class
+        public Flow_Control(bool run) //initialized class with default values
         {
             player_turn_colour = "Blue";
             click_event_no = 0;
@@ -50,6 +50,7 @@ namespace NEA
             return thescore;
         }
 
+        //creates a new instance of the AI and then uses this to make a move on the board.
         public AI AI_Move(Board_Grid thegrid, System_Scoring thesystem_score, Score thescore)
         {
             AI New_AI = new AI();

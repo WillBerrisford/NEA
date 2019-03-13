@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace NEA
 {
-    [System.Serializable]
-    [System.Xml.Serialization.XmlInclude(typeof(Board_Grid))]
-    [System.Xml.Serialization.XmlInclude(typeof(Flow_Control))]
-    [System.Xml.Serialization.XmlInclude(typeof(Account))]
+    [System.Serializable] //this allows the serialiser to serialize all public parts of this object
+    [System.Xml.Serialization.XmlInclude(typeof(Board_Grid))] //This specifically tells the serializer that the Board_Grid class can and should be serialized
+    [System.Xml.Serialization.XmlInclude(typeof(Flow_Control))] //This specifically tells the serializer that the Flow_Control class can and should be serialized
+    [System.Xml.Serialization.XmlInclude(typeof(Account))] //This specifically tells the serializer that the Account class can and should be serialized
     public class DataView //a wrapper class containing the grid and flow control 
     {
         public Board_Grid thegrid { get; set; }
