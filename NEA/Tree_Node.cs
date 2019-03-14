@@ -7,16 +7,19 @@ using System.Threading.Tasks;
 
 namespace NEA
 {
+    //this class represents a node containing two locations and the corresponding score
     public class Tree_Node : IEnumerable<Tree_Node>
     {
-        Dictionary<int, Tree_Node> Child_Nodes { get; set; }
-        public List<Tree_Node> Child_Nodes_List { get; set; }
+        Dictionary<int, Tree_Node> Child_Nodes { get; set; } //this dictionary asscociates a child tree node with the score for that tree node
+        public List<Tree_Node> Child_Nodes_List { get; set; }//a dictionary of tree nodes contained by this tree node
+                                                             //these nodes correspond to all the possible legal moves that could be made 
+                                                             //from the starting position of the board in the current tree node
 
-        int ID { get; set; }
-        int Score { get; set; }
-        int Depth { get; set; }
+        int ID { get; set; } //this is the unique ID of the Tree Node
+        int Score { get; set; } //this is the score of the Tree Node
+        int Depth { get; set; } //this is the depth of the tree node 
 
-        Board_Grid_AI thegrid { get; set; }
+        Board_Grid_AI thegrid { get; set; } //the grid associated with this tree node
 
         Location Current_Location { get; set; }
         Location Move_Location { get; set; }

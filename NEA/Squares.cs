@@ -35,17 +35,17 @@ namespace NEA
             Neutral = Neutral + 1;
         }
 
-        public int Get_Team_One()
+        public int Get_Team_One() //retrieves the number of squares controlled by team 1
         {
             return Team_one;
         }
 
-        public int Get_Team_Two()
+        public int Get_Team_Two() //retrieves the number of squares controlled by team 2
         {
             return Team_two;
         }
 
-        public int Get_Neutral()
+        public int Get_Neutral() //retrieves the number of squares not controlled by either player
         {
             return Neutral;
         }
