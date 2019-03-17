@@ -21,14 +21,15 @@ namespace NEA
 
         Board_Grid_AI thegrid { get; set; } //the grid associated with this tree node
 
-        Location Current_Location { get; set; }
-        Location Move_Location { get; set; }
+        Location Current_Location { get; set; } //the current location of the piece which will be moved 
+        Location Move_Location { get; set; } //the future location that the piece will be moved to
 
-        public Tree_Node Parent { get; private set; }
+        public Tree_Node Parent { get; private set; } //the tree node that this node is the child of
 
         public Tree_Node()
         { }
 
+        //intialises the tree node with given values
         public Tree_Node(Board_Grid_AI Board, Location Current, Location Move, int theid, int thescore, int thedepth, Tree_Node Parent_Node)
         {
             thegrid = Board;
@@ -45,6 +46,7 @@ namespace NEA
             Child_Nodes_List = new List<Tree_Node>();
         }
 
+        //adds a new child node to the tree 
         public void Add_Tree_Node(Tree_Node Given_Node, int theid)
         {
             Tree_Node New_Node = Given_Node;
@@ -52,6 +54,7 @@ namespace NEA
             Child_Nodes_List.Add(New_Node);
         }
 
+        //generates a new child node using provided information
         public void Add_Tree(Board_Grid_AI Board, Location Current, Location Move, int theid, int thescore)
         {
             Tree_Node New_Node = new Tree_Node(Board, Current, Move, theid, thescore, Depth + 1, this);

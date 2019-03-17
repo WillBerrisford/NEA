@@ -9,7 +9,7 @@ using System.Diagnostics;
 namespace NEA
 {
     [System.Serializable]
-    [System.Xml.Serialization.XmlInclude(typeof(Location))]
+    [System.Xml.Serialization.XmlInclude(typeof(Location))] //tells the serializer that this object can be serialized
     public class Unit : INotifyPropertyChanged
     {
         public Location Unit_location { get; set; } //location of given unit
@@ -26,18 +26,19 @@ namespace NEA
         public Unit()
         { }
 
+        //initialises the unit using given data
         public Unit(Location Given_location, int Given_strength, bool In_play, int Given_team, string Given_Team_colour, string Given_Piece_colour)
         {
             Unit_location = Given_location; //sets unit location
             Unit_Strength = Given_strength; //sets unit strength
 
-            if (Given_strength == 0) //checks if unit has 0 strength 
+            if (Given_strength == 0) //checks if unit has been destroyed
             {
                 Str_Strength = null;
             }
             else
             {
-                Str_Strength = Unit_Strength.ToString();
+                Str_Strength = Unit_Strength.ToString(); 
             }
 
             Occupied = In_play;
@@ -46,9 +47,10 @@ namespace NEA
             Piece_colour = Given_Piece_colour;
         }
 
+        //updates the strength based on the strength given as well as checking if the unit has been destroyed
         public void Update_Strength(int Strength)
         {
-            if (Strength == 0) //checks if unit has no piece or if peice has been killed
+            if (Strength == 0) //checks if unit has no piece or if piece has been killed
             {
                 Str_Strength = null;
             }
@@ -159,6 +161,7 @@ namespace NEA
 
         public void Move_Update(Location Given_location, int Given_strength, bool In_play, int Given_team, string Given_Team_colour, string Given_Piece_colour)
         {   //Updates unit when a piece is moved into its location
+            //works by copying the data from another unit into this unit
             Unit_location = Given_location;
             Unit_Strength = Given_strength;
 
@@ -176,10 +179,10 @@ namespace NEA
             Team_colour = Given_Team_colour;
             Piece_colour = Given_Piece_colour;
 
-            Update_all();
+            Update_all(); //updates the UI of this square on the board
         }
 
-        public void NotifyPropertyChanged(string propertyName) //updates UI
+        public void NotifyPropertyChanged(string propertyName) //updates UI for a specific property
         {
             if (propertyName != null)
             {
