@@ -9,6 +9,7 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Xml.Serialization;
 
 namespace NEA
 {
@@ -19,7 +20,8 @@ namespace NEA
         public bool SignedIn { get; set; }
         public string Password { get; set; }
         public ObservableCollection<GameListDisplay> GameList { get; set; }
-        public List<string> StringListGameName { get; set; } 
+        [XmlIgnoreAttribute]
+        public LinkedList<string> StringListGameName { get; set; }
 
         public Account()
         { }
@@ -58,8 +60,11 @@ namespace NEA
                         }
                     }
                 }
-                connection.Close(); 
-                Get_Game_List(name); //retrieves lists of saved games
+                connection.Close();
+                if (SignedIn == true)
+                {
+                    Get_Game_List(name); //retrieves lists of saved games
+                }
             }
             catch (Exception Error) //runs if there is an error with the operation
             {
@@ -180,7 +185,7 @@ namespace NEA
         public void Get_Game_List(string GameUserID)
         {
             ObservableCollection<GameListDisplay> Name_List = new ObservableCollection<GameListDisplay>();
-            List<string> Name_List_String = new List<string>();
+            LinkedList<string> Name_List_String = new LinkedList<string>();
             string command_text = @"SELECT GameName FROM GameData WHERE GameUserName = @ID"; //Statement retrieves all the names of games saved by the user that is currently logged in
 
             MySqlConnection connection = Connect();
@@ -195,11 +200,19 @@ namespace NEA
                     while (dataReader.Read())
                     {
                         Name_List.Add(new GameListDisplay(dataReader["GameName"].ToString())); //adds the retrieved game names to a the ObsevableCollection
-                        Name_List_String.Add(dataReader["GameName"].ToString()); //adds the retrieved game names to the list of game names
+                        Name_List_String.AddLast(dataReader["GameName"].ToString()); //adds the retrieved game names to the list of game names
                         NotifyPropertyChanged("GameList"); //notifies the UI that GameList has been changed
                     }
-                    GameList = Name_List; //sets GameList equal to the contents of the observable collection
+                    //GameList = Name_List; //sets GameList equal to the contents of the observable collection
                     StringListGameName = Name_List_String; //sets the class attribute StringListGameName to the contents of the Name_List_String
+                    sort_list();
+
+                    ObservableCollection<GameListDisplay> temp = new ObservableCollection<GameListDisplay>();
+                    foreach (string x in StringListGameName)
+                    {
+                        temp.Add(new GameListDisplay(x));
+                    }
+                    GameList = temp;
                 }
             }
 
@@ -207,6 +220,80 @@ namespace NEA
             {
                 Debug.WriteLine(error.ToString()); //writes errors to the debug window
             }
+        }
+
+        public void sort_list()
+        {
+            LinkedListNode<string> right = StringListGameName.Last;
+            LinkedListNode<string> left = StringListGameName.First;
+
+            quicksort(left, right);
+            Debug.WriteLine("");
+        }
+
+        LinkedListNode<string> partition(LinkedListNode<string> left, LinkedListNode<string> right, LinkedListNode<string> thepivot)
+        {
+            LinkedListNode<string> OriginalRight = right;
+            right = right.Previous;
+            bool finished = false;
+
+            while (finished == false)
+            {
+                while (left.Next != null && left.Next != thepivot && String.Compare(left.Value, thepivot.Value) < 0)
+                {
+                    left = left.Next;
+                }
+
+                while (right.Previous != null && String.Compare(right.Value, thepivot.Value) > 0)
+                {
+                    right = right.Previous;
+                }
+
+                bool left_more_right = false;
+
+                for (LinkedListNode<string> node = left; node.Previous != null; node = node.Previous)
+                {
+                    if (node == right)
+                    {
+                        left_more_right = true;
+                        break;
+                    }
+                }
+
+                if (left_more_right == false)
+                {
+                    string temp = left.Value;
+                    left.Value = right.Value;
+                    right.Value = temp;
+                    break;
+                }
+                else
+                { break; }
+            }
+         
+            String temp2 = left.Value;
+            left.Value = OriginalRight.Value;
+            OriginalRight.Value = temp2;
+
+            return left;
+        }
+
+        void quicksort(LinkedListNode<string> left, LinkedListNode<string> right)
+        {
+            for (LinkedListNode<String> node = right; node != null && node.Previous != null && left != null; node = node.Previous)
+            {
+                if (node != left)
+                {
+                    LinkedListNode<string> thepivot = StringListGameName.Find(right.Value);
+                    LinkedListNode<string> thepartition = partition(left, right, thepivot);
+                    quicksort(left, thepartition.Previous);
+                    quicksort(thepartition.Next, right);
+                }
+                else
+                { return; }
+            }
+
+            return;
         }
 
         public ObservableCollection<GameListDisplay> Return_game_list() 

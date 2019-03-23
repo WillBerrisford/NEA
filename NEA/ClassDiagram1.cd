@@ -1,13 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="NEA.Account">
-    <Position X="0.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AABgACCAAAIBAYAQAiAAEAAEwAAAAACCAAQAAAAAEAA=</HashCode>
-      <FileName>Account.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
   <Class Name="NEA.AI">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
@@ -78,7 +70,7 @@
     <Position X="4" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAgAAAAAAgAABAAAAEIAAAAAggAAAAAAAAAAAA=</HashCode>
-      <FileName>Location.cs</FileName>
+      <FileName>Location_Score.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NEA.MainWindow">
@@ -138,6 +130,14 @@
     <TypeIdentifier>
       <HashCode>BAACggAEFCoAAIAAAQIAAAAAxAAIAAAIkAAIAAAIQIA=</HashCode>
       <FileName>Unit.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NEA.Account">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABgCCCAAAKBAYAQAiAAEAAEwAAAAACCAESAAAAAEAA=</HashCode>
+      <FileName>Account.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
