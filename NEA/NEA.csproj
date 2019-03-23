@@ -69,6 +69,7 @@
     <Compile Include="GameListDisplay.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Location_Score.cs" />
+    <Compile Include="Quicksort.cs" />
     <Compile Include="Salt_Hash.cs" />
     <Compile Include="Save.cs" />
     <Compile Include="Tree_Node.cs" />

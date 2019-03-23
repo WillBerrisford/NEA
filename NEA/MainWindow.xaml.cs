@@ -27,21 +27,6 @@ namespace NEA
         {
             this.DataContext = Data; //initialises the window using Data as the datacontext
             InitializeComponent();
-            Data.theaccount.StringListGameName = new LinkedList<string>();
-            Data.theaccount.StringListGameName.AddLast("bbb");
-            Data.theaccount.StringListGameName.AddLast("bba");
-            Data.theaccount.StringListGameName.AddLast("bab");
-            Data.theaccount.StringListGameName.AddLast("abb");
-            Data.theaccount.StringListGameName.AddLast("baa");
-            Data.theaccount.StringListGameName.AddLast("aab");
-            Data.theaccount.StringListGameName.AddLast("aaa");
-            Data.theaccount.StringListGameName.AddLast("xcb");
-            Data.theaccount.StringListGameName.AddLast("iau");
-            Data.theaccount.StringListGameName.AddLast("f");
-            Data.theaccount.StringListGameName.AddLast("u");
-            Data.theaccount.StringListGameName.AddLast("p");
-            Data.theaccount.sort_list();
-            Debug.Write("");
         }
 
         //warning the user if the username they entered does not exist

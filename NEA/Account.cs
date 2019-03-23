@@ -205,7 +205,7 @@ namespace NEA
                     }
                     //GameList = Name_List; //sets GameList equal to the contents of the observable collection
                     StringListGameName = Name_List_String; //sets the class attribute StringListGameName to the contents of the Name_List_String
-                    sort_list();
+                    //sort_list();
 
                     ObservableCollection<GameListDisplay> temp = new ObservableCollection<GameListDisplay>();
                     foreach (string x in StringListGameName)
@@ -220,81 +220,7 @@ namespace NEA
             {
                 Debug.WriteLine(error.ToString()); //writes errors to the debug window
             }
-        }
-
-        public void sort_list()
-        {
-            LinkedListNode<string> right = StringListGameName.Last;
-            LinkedListNode<string> left = StringListGameName.First;
-
-            quicksort(left, right);
-            Debug.WriteLine("");
-        }
-
-        LinkedListNode<string> partition(LinkedListNode<string> left, LinkedListNode<string> right, LinkedListNode<string> thepivot)
-        {
-            LinkedListNode<string> OriginalRight = right;
-            right = right.Previous;
-            bool finished = false;
-
-            while (finished == false)
-            {
-                while (left.Next != null && left.Next != thepivot && String.Compare(left.Value, thepivot.Value) < 0)
-                {
-                    left = left.Next;
-                }
-
-                while (right.Previous != null && String.Compare(right.Value, thepivot.Value) > 0)
-                {
-                    right = right.Previous;
-                }
-
-                bool left_more_right = false;
-
-                for (LinkedListNode<string> node = left; node.Previous != null; node = node.Previous)
-                {
-                    if (node == right)
-                    {
-                        left_more_right = true;
-                        break;
-                    }
-                }
-
-                if (left_more_right == false)
-                {
-                    string temp = left.Value;
-                    left.Value = right.Value;
-                    right.Value = temp;
-                    break;
-                }
-                else
-                { break; }
-            }
-         
-            String temp2 = left.Value;
-            left.Value = OriginalRight.Value;
-            OriginalRight.Value = temp2;
-
-            return left;
-        }
-
-        void quicksort(LinkedListNode<string> left, LinkedListNode<string> right)
-        {
-            for (LinkedListNode<String> node = right; node != null && node.Previous != null && left != null; node = node.Previous)
-            {
-                if (node != left)
-                {
-                    LinkedListNode<string> thepivot = StringListGameName.Find(right.Value);
-                    LinkedListNode<string> thepartition = partition(left, right, thepivot);
-                    quicksort(left, thepartition.Previous);
-                    quicksort(thepartition.Next, right);
-                }
-                else
-                { return; }
-            }
-
-            return;
-        }
+        }       
 
         public ObservableCollection<GameListDisplay> Return_game_list() 
         {
