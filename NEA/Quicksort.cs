@@ -22,17 +22,19 @@ namespace NEA
 
         LinkedListNode<string> partition(LinkedListNode<string> left, LinkedListNode<string> right)
         {
+            LinkedListNode<string> leftwall = left.Previous;
+            LinkedListNode<string> rightwall = right.Next;
             LinkedListNode<string> pivot = right;
             right = right.Previous;
 
             while (true)
             {
-                while (String.Compare(pivot.Value, left.Value) > 0 && left.Next != null) //pivot.Value > left.Value
+                while (String.Compare(pivot.Value, left.Value) > 0 && left.Next != null && left.Next != rightwall) //pivot.Value > left.Value
                 {
                     left = left.Next;
                 }
 
-                while (String.Compare(pivot.Value, right.Value) < 0 && right.Previous != null) //pivot.Value < right.Value
+                while (String.Compare(pivot.Value, right.Value) < 0 && right.Previous != null && right.Previous != leftwall) //pivot.Value < right.Value
                 {
                     right = right.Previous;
                 }
@@ -60,6 +62,10 @@ namespace NEA
             for (LinkedListNode<string> node = left; node != null; node = node.Previous)
             {
                 if (right == node)
+                {
+                    return;
+                }
+                else if (right == null)
                 {
                     return;
                 }

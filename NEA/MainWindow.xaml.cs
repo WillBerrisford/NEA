@@ -27,6 +27,7 @@ namespace NEA
         {
             this.DataContext = Data; //initialises the window using Data as the datacontext
             InitializeComponent();
+
         }
 
         //warning the user if the username they entered does not exist

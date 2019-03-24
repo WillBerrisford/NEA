@@ -55,11 +55,6 @@ namespace NEA
                             //if the entry in the GameName column is the same as the given game name
                             return false;
                         }
-                        else
-                        {
-                            //if the entry in the GameName column is not the same as the given game name
-                            return true;
-                        }
                     }
                     return true;
                 }
