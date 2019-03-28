@@ -17,6 +17,7 @@ namespace NEA
         public string player_turn_colour { get; set; } //the colour of the players who's turn is the current one
         public string player_1_win { get; set; } //turns blue if player 1 wins
         public string player_2_win { get; set; } //turns red if player 2 wins
+        public bool playing_game { get; set; }
 
         public Location The_Current_Location { get; set; } //current location of selected unit
         public Location The_Move_Location { get; set; } //location the player is tring to move the unit to
@@ -43,6 +44,7 @@ namespace NEA
             turn_number = 0;
             player_1_win = "White";
             player_2_win = "White";
+            playing_game = true;
         }
 
         public Score Get_Score()
@@ -60,119 +62,122 @@ namespace NEA
 
         void new_click(Location the_location, Board_Grid thegrid, Flow_Control Control) //controls click logic
         {
-
-            //Checking whether this is the first time the user has clicked (selecting a piece that will be moved)
-            //or whether it is the second time (selecting a place to move to)
-            if (click_event_no == 0) 
+            if (playing_game)
             {
-                //this selects a piece that will be moved:
-                int index = thegrid.Get_Index(the_location); //gets index of the location of the piece
-                The_Current_Location = new Location(the_location.Get_x(), the_location.Get_y()); //generates current location
-                click_event_no = 1; //notifies the program that the a piece has been selected to be moved
-
-                if (player_turn == thegrid.Grid_List[index].Get_Team()) //checks if the unit selected is on the same team as the current player
-                { is_move = true; } //allows for the moving of the piece if it is on the same team as the player
-                else
-                { is_move = false; } //does not allow a move to take place because a player cannot move a piece belonging to another team
-            }
-            else
-            {
-                //this selects the position on the board that a previously selected piece will be moved to 
-                if (is_move == true) //checks if the piece was selected legally (on the correct team)
+                //Checking whether this is the first time the user has clicked (selecting a piece that will be moved)
+                //or whether it is the second time (selecting a place to move to)
+                if (click_event_no == 0)
                 {
-                    The_Move_Location = new Location(the_location.Get_x(), the_location.Get_y()); //sets the location that the piece will be moved to
-                    if (thegrid.Move(The_Current_Location, The_Move_Location, thescore) == true) //checks whether the move is legal
-                                                                                                 //Will also make the move if the move is legal
+                    //this selects a piece that will be moved:
+                    int index = thegrid.Get_Index(the_location); //gets index of the location of the piece
+                    The_Current_Location = new Location(the_location.Get_x(), the_location.Get_y()); //generates current location
+                    click_event_no = 1; //notifies the program that the a piece has been selected to be moved
+
+                    if (player_turn == thegrid.Grid_List[index].Get_Team()) //checks if the unit selected is on the same team as the current player
+                    { is_move = true; } //allows for the moving of the piece if it is on the same team as the player
+                    else
+                    { is_move = false; } //does not allow a move to take place because a player cannot move a piece belonging to another team
+                }
+                else
+                {
+                    //this selects the position on the board that a previously selected piece will be moved to 
+                    if (is_move == true) //checks if the piece was selected legally (on the correct team)
                     {
-                        //updates each of the grid squares for any changes that have occurred in the move
-                        for (int index = 0; index < thegrid.Grid_List.Count(); index++) 
+                        The_Move_Location = new Location(the_location.Get_x(), the_location.Get_y()); //sets the location that the piece will be moved to
+                        if (thegrid.Move(The_Current_Location, The_Move_Location, thescore) == true) //checks whether the move is legal
+                                                                                                     //Will also make the move if the move is legal
                         {
-                            thegrid.Grid_List[index].Update_all();
-                        }
-
-                        turn_number = turn_number + 1; //tells the program that 1 more turn has been completed
-
-                        if (turn_number % 2 == 0) //checks if it is the end of player 2's go
-                                                  //if so it means that the scores according to the ownership of squares must be added
-                        {
-                            squares = new Squares();
-                            squares = thegrid.Count_squares(); //counts number of squares that both teams own
-                            thescore.square_points(squares); //adds points based on squares controlled
-                        }
-
-                        EndGame(thescore, thegrid); //checks if one team has won
-                        click_event_no = 0; //tells the program that the 2nd click to determine where to move the piece to has been completed
-                        Debug.WriteLine("Click Event 1");
-
-                        if (player_turn == 1) //switches current turn to other player
-                        {
-                            bool AI_On = true; 
-
-                            if (AI_On == true) //checks if the ai is enabled
+                            //updates each of the grid squares for any changes that have occurred in the move
+                            for (int index = 0; index < thegrid.Grid_List.Count(); index++)
                             {
-                                player_turn = 2;                            //
-                                player_turn_colour = "Red";                 // 
-                                NotifyPropertyChanged("player_turn");       //
-                                NotifyPropertyChanged("player_turn_colour");// changes to he UI to show that is is currently player 2's/the AI's go
+                                thegrid.Grid_List[index].Update_all();
+                            }
 
-                                system_score.Calculate_Score(thegrid); //calculates internal score used by the AI to judge how strong different moves are
-                                                                       //this generates the current one using the current board
-                                AI Move_Locations = AI_Move(thegrid, system_score, thescore); // runs AI which determines which piece to move
-                                                                                              //And where to move the piece to
-                                Location Current_Location = Move_Locations.Get_Current(); //retrieves the location of the piece that is going to be moved
-                                Location Move_Location = Move_Locations.Get_Move(); //retrieces the location of the place that the piece will be moved to
+                            turn_number = turn_number + 1; //tells the program that 1 more turn has been completed
 
-                                if(Current_Location == null || Move_Location == null) //checks that the AI is able to make a move. 
-                                {
-                                    //if not the game checks if the AI has any pieces left
-                                    EndGame(thescore, thegrid);
-                                }
-                                else
-                                {
-                                    //if the move is valid, then the move is made
-                                    thegrid.Move(Current_Location, Move_Location, thescore); //uses the generated moves to move the pieces
-                                }
-                               
-                                turn_number = turn_number + 1; //informs the program that another turn is over
-                                click_event_no = 0; //resets click event number
-
-                                squares = new Squares(); 
+                            if (turn_number % 2 == 0) //checks if it is the end of player 2's go
+                                                      //if so it means that the scores according to the ownership of squares must be added
+                            {
+                                squares = new Squares();
                                 squares = thegrid.Count_squares(); //counts number of squares that both teams own
                                 thescore.square_points(squares); //adds points based on squares controlled
-                                EndGame(thescore, thegrid); //checks if one team has won
-
-                                player_turn = 1;                             //
-                                player_turn_colour = "Blue";                 //
-                                NotifyPropertyChanged("player_turn");        //Updates the UI to inform the player that it is currently the
-                                NotifyPropertyChanged("player_turn_colour"); // turn of player 1
                             }
 
-                            else
+                            EndGame(thescore, thegrid); //checks if one team has won
+                            click_event_no = 0; //tells the program that the 2nd click to determine where to move the piece to has been completed
+                            Debug.WriteLine("Click Event 1");
+
+                            if (player_turn == 1) //switches current turn to other player
                             {
-                                player_turn = 2;                            //
-                                player_turn_colour = "Red";                 //
+                                bool AI_On = true;
+
+                                if (AI_On == true) //checks if the ai is enabled
+                                {
+                                    player_turn = 2;                            //
+                                    player_turn_colour = "Red";                 // 
+                                    NotifyPropertyChanged("player_turn");       //
+                                    NotifyPropertyChanged("player_turn_colour");// changes to he UI to show that is is currently player 2's/the AI's go
+
+                                    system_score.Calculate_Score(thegrid); //calculates internal score used by the AI to judge how strong different moves are
+                                                                           //this generates the current one using the current board
+                                    AI Move_Locations = AI_Move(thegrid, system_score, thescore); // runs AI which determines which piece to move
+                                                                                                  //And where to move the piece to
+                                    Location Current_Location = Move_Locations.Get_Current(); //retrieves the location of the piece that is going to be moved
+                                    Location Move_Location = Move_Locations.Get_Move(); //retrieces the location of the place that the piece will be moved to
+
+                                    if (Current_Location == null || Move_Location == null) //checks that the AI is able to make a move. 
+                                    {
+                                        //if not the game checks if the AI has any pieces left
+                                        EndGame(thescore, thegrid);
+                                    }
+                                    else
+                                    {
+                                        //if the move is valid, then the move is made
+                                        thegrid.Move(Current_Location, Move_Location, thescore); //uses the generated moves to move the pieces
+                                    }
+
+                                    turn_number = turn_number + 1; //informs the program that another turn is over
+                                    click_event_no = 0; //resets click event number
+
+                                    squares = new Squares();
+                                    squares = thegrid.Count_squares(); //counts number of squares that both teams own
+                                    thescore.square_points(squares); //adds points based on squares controlled
+                                    EndGame(thescore, thegrid); //checks if one team has won
+
+                                    player_turn = 1;                             //
+                                    player_turn_colour = "Blue";                 //
+                                    NotifyPropertyChanged("player_turn");        //Updates the UI to inform the player that it is currently the
+                                    NotifyPropertyChanged("player_turn_colour"); // turn of player 1
+                                }
+
+                                else
+                                {
+                                    player_turn = 2;                            //
+                                    player_turn_colour = "Red";                 //
+                                    NotifyPropertyChanged("player_turn");       //Updates the UI to inform the player that it is currently the
+                                    NotifyPropertyChanged("player_turn_colour");// turn of player 2
+                                }
+                            }
+                            else //switches current turn to other player
+                            {
+                                player_turn = 1;                            //
+                                player_turn_colour = "Blue";                //
                                 NotifyPropertyChanged("player_turn");       //Updates the UI to inform the player that it is currently the
-                                NotifyPropertyChanged("player_turn_colour");// turn of player 2
+                                NotifyPropertyChanged("player_turn_colour");// turn of player 1
                             }
                         }
-                        else //switches current turn to other player
-                        {
-                            player_turn = 1;                            //
-                            player_turn_colour = "Blue";                //
-                            NotifyPropertyChanged("player_turn");       //Updates the UI to inform the player that it is currently the
-                            NotifyPropertyChanged("player_turn_colour");// turn of player 1
-                        }
-                    }
-                    else { click_event_no = 0; } //tells the program that a move was invalid so it needs to return to selecting a piece to move to
-                                                 // rather than continuing to try to find a positioin on the board to move to
+                        else { click_event_no = 0; } //tells the program that a move was invalid so it needs to return to selecting a piece to move to
+                                                     // rather than continuing to try to find a positioin on the board to move to
 
-                }
-                else
-                {
-                    click_event_no = 0;  //tells the program that a piece selected to move was invalid so it needs to return to selecting a
-                                         //  piece to move, in order to select a valid piece.
+                    }
+                    else
+                    {
+                        click_event_no = 0;  //tells the program that a piece selected to move was invalid so it needs to return to selecting a
+                                             //  piece to move, in order to select a valid piece.
+                    }
                 }
             }
+            else { return; }
         }
 
         //this checks if the game has ended, either through a points victory, or one team has lost all it's pieces
@@ -184,12 +189,14 @@ namespace NEA
                 //if player 1 has won
                 player_1_win = "Blue";                  //
                 NotifyPropertyChanged("player_1_win");  //Updates the UI, notifying the player that player 1 has won
+                playing_game = false; //ends the game
             }
             else if (thescore.team_2_points >= 250) 
             {
                 //if player 2 has won
                 player_2_win = "Red";                   //
                 NotifyPropertyChanged("player_2_win");  //Updates the UI, notifying the player that player 2 has won
+                playing_game = false; //ends the game
             }
 
             else //if neither team has enough points to win
@@ -200,6 +207,7 @@ namespace NEA
                 player_2_win = "Red";                   //
                 NotifyPropertyChanged("player_1_win");  //Temporarily shows that both players have won (too quick for the player to see)
                 NotifyPropertyChanged("player_2_win");  //
+                playing_game = false; 
 
                 for (int i = 0; i < 25; i++) //checks whether either team has run out of units 
                 {
@@ -210,6 +218,7 @@ namespace NEA
                         //Changes the UI to reflect this
                         player_2_win = "White";
                         NotifyPropertyChanged("player_2_win");
+                        playing_game = true; 
                     }
 
                     if (thegrid.Grid_List[i].Get_Occupied() == true && thegrid.Grid_List[i].Get_Team() == 2)    //checks whether any units belonging to 
@@ -219,6 +228,7 @@ namespace NEA
                         //Changes the UI to reflect this
                         player_1_win = "White";
                         NotifyPropertyChanged("player_1_win");
+                        playing_game = true; 
                     }
                 }
             }
@@ -230,11 +240,6 @@ namespace NEA
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
-        }
-
-        public void Login_Click(string name, string password)
-        {
-            
         }
 
         //These activate when a certain button is clicked

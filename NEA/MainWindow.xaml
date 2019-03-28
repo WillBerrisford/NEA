@@ -13,7 +13,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0" Margin="20 40" Background="DarkRed">
+        <StackPanel Grid.Column="0" Margin="20 40">
             <TextBlock Text="{Binding Path=Control.player_turn, StringFormat='Current Turn: Player {0}'}" Foreground="{Binding Path=Control.player_turn_colour}"/>
             <TextBlock Text=""/>
             <TextBlock Text=""/>
@@ -38,7 +38,7 @@
             </Button>
         </StackPanel>
 
-        <StackPanel Grid.Column="2" Margin="20 40" Background="DarkBlue">
+        <StackPanel Grid.Column="2" Margin="20 40">
             <TextBlock Text=""/>
             <TextBlock Text=""/>
             <TextBlock Text=""/>
