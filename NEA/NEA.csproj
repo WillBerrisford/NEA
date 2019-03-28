@@ -68,6 +68,8 @@
     <Compile Include="Flow_Control.cs" />
     <Compile Include="GameListDisplay.cs" />
     <Compile Include="Location.cs" />
+    <Compile Include="Location_Score.cs" />
+    <Compile Include="Quicksort.cs" />
     <Compile Include="Salt_Hash.cs" />
     <Compile Include="Save.cs" />
     <Compile Include="Tree_Node.cs" />
@@ -107,6 +109,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

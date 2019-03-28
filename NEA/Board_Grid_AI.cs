@@ -180,8 +180,10 @@ namespace NEA
             int Move_Index = Get_Index(Move_To);
             bool success = false;
 
+            //checks that the move is legal and valid
             if (Check_Move(Current_Index, Move_Index) == true)
             {
+                //checks whether moving to the intended position requires an attack to take place
                 if (Check_Attack(Move_Index, Current_Index) == true)
                 {
                     Attack(Current_Index, Move_Index, thescore);

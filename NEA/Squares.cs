@@ -9,9 +9,9 @@ namespace NEA
 {
     public class Squares
     {
-        private int Team_one { get; set; } //number of squares controlled by team 1
-        private int Team_two { get; set; }//number of squares controlled by team 2
-        private int Neutral { get; set; }//number of squares that are neutral
+        public int Team_one { get; set; } //number of squares controlled by team 1
+        public int Team_two { get; set; }//number of squares controlled by team 2
+        public int Neutral { get; set; }//number of squares that are neutral
 
         public Squares() //initialises class with all values at 0
         {
@@ -35,17 +35,17 @@ namespace NEA
             Neutral = Neutral + 1;
         }
 
-        public int Get_Team_One()
+        public int Get_Team_One() //retrieves the number of squares controlled by team 1
         {
             return Team_one;
         }
 
-        public int Get_Team_Two()
+        public int Get_Team_Two() //retrieves the number of squares controlled by team 2
         {
             return Team_two;
         }
 
-        public int Get_Neutral()
+        public int Get_Neutral() //retrieves the number of squares not controlled by either player
         {
             return Neutral;
         }

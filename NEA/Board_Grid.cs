@@ -8,13 +8,13 @@ using System.Diagnostics;
 
 namespace NEA
 {
+    [System.Serializable] 
+    [System.Xml.Serialization.XmlInclude(typeof(List<Unit>))] //allows the object to be serialized into an xml string
     public class Board_Grid : INotifyPropertyChanged
-    {
-        //List<Unit> Grid_List = new List<Unit>();  ///The Grid_List where all the units are stored
+    {     
         public List<Unit> Grid_List { get; set; }  //The Grid_List where all the units are stored
-        //public List<Unit> Grid_List = new List<Unit>();  ///The Grid_List where all the units are stored 
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged; //updates the UI
 
         public List<Unit> get_Grid()
         {
@@ -30,7 +30,7 @@ namespace NEA
             Grid_List = new List<Unit>();
             for (int y = 0; y < 5; y++)
             {
-                for (int x = 0; x < 5; x++)
+                for (int x = 0; x < 5; x++) //runs through all the possible grid squares on the board
                 {
                     //sets default values for non-team squares
                     int Given_Strength = 0;
@@ -39,6 +39,7 @@ namespace NEA
                     string Given_Team_Colour = "white";
                     string Given_Piece_Colour = "white";
 
+                    //sets default values for team 2 squares
                     if (y == 4)
                     {
                         Given_Strength = set_strength(x);
@@ -48,6 +49,7 @@ namespace NEA
                         Given_Piece_Colour = "Red";
                     }
 
+                    //sets default values for team 1 squares
                     else if (y == 0)
                     {
                         Given_Strength = set_strength(x);
@@ -57,16 +59,16 @@ namespace NEA
                         Given_Piece_Colour = "blue";
                     }
 
-                    Location Given_Location = new Location(x, y);
-                    Grid_List.Add(new Unit(Given_Location, Given_Strength, In_Play, Given_Team, Given_Team_Colour, Given_Piece_Colour));
+                    Location Given_Location = new Location(x, y); //creates a location so it can be assigned to a unit
+                    Grid_List.Add(new Unit(Given_Location, Given_Strength, In_Play, Given_Team, Given_Team_Colour, Given_Piece_Colour)); //adds the piece to the board
                 }
             }
         }
 
-        public List<Unit> Clone()
+        public List<Unit> Clone() //clones the grid to a new object
         {
             List<Unit> thegrid = new List<Unit>();
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < 25; i++) //this creates an identical copy of every unit in the current grid and puts it in the new grid
             {
                 Unit theunit = new Unit(Grid_List[i].Get_Location(), Grid_List[i].Get_Strength(), Grid_List[i].Get_Occupied(), Grid_List[i].Get_Team(), Grid_List[i].Get_Colour(), Grid_List[i].Get_Piece());
                 thegrid.Add(theunit);
@@ -79,7 +81,7 @@ namespace NEA
         {
             int Given_Strength;
 
-            if (x == 4 || x == 0)
+            if (x == 4 || x == 0) 
             {
                 Given_Strength = 2;
             }
@@ -102,7 +104,7 @@ namespace NEA
 
             for (int position = 0; position < 25; position++)
             {
-                int team = Grid_List[position].Get_Team();
+                int team = Grid_List[position].Get_Team(); //gets the team of a given square
                 if (team == 1)
                 {
                     Team_squares.Add_Team_One();
@@ -164,33 +166,33 @@ namespace NEA
         //finds all possible legal locations for a move
         public List<Location> Get_Possible_Locations(int Current_Index)
         {
-            List<Location> Possible_Locations = new List<Location>();
+            List<Location> Possible_Locations = new List<Location>(); //list of locations that it is possible to move to
 
-            int x = Grid_List[Current_Index].Get_Location().Get_x();
-            int y = Grid_List[Current_Index].Get_Location().Get_y();
+            int x = Grid_List[Current_Index].Get_Location().Get_x(); //current x coordinate of unit
+            int y = Grid_List[Current_Index].Get_Location().Get_y(); //current y coordinate of unit
 
-            y = y + 1;
+            y = y + 1; //the square above the unit
             Possible_Locations.Add(new Location(x, y));
 
-            x = x + 1;
+            x = x + 1; //the square diagonally above and to the right of the unit
             Possible_Locations.Add(new Location(x, y));
 
-            y = y - 1;
+            y = y - 1;//the square to the right of the unit
             Possible_Locations.Add(new Location(x, y));
 
-            y = y - 1;
+            y = y - 1;//the square diagonally below and to the right of the unit
             Possible_Locations.Add(new Location(x, y));
 
-            x = x - 1;
+            x = x - 1;//the square below the unit
             Possible_Locations.Add(new Location(x, y));
 
-            x = x - 1;
+            x = x - 1;//the square diagonally below and to the left of the unit
             Possible_Locations.Add(new Location(x, y));
 
-            y = y + 1;
+            y = y + 1;//the square to the left of the unit
             Possible_Locations.Add(new Location(x, y));
 
-            y = y + 1;
+            y = y + 1;//the square diagonally above and to the left of the unit
             Possible_Locations.Add(new Location(x, y));
 
             return Possible_Locations;
@@ -199,6 +201,7 @@ namespace NEA
         //checks whether moving to a certain location would require an attack to happen
         public bool Check_Attack(int Move_Index, int Current_Index)
         {
+            //checks if a square is occupied and if so it checks whether the unit is on the opposite team
             if (Grid_List[Move_Index].Get_Occupied() == true && Grid_List[Move_Index].Get_Team() != Grid_List[Current_Index].Get_Team())
             {
                 return true;
@@ -217,17 +220,17 @@ namespace NEA
             int Move_Index = Get_Index(Move_To);
             bool success = false;
 
-            if (Check_Move(Current_Index, Move_Index) == true)
+            if (Check_Move(Current_Index, Move_Index) == true) //checks that the move is legal
             {
-                if (Check_Attack(Move_Index, Current_Index) == true)
+                if (Check_Attack(Move_Index, Current_Index) == true) //checks whether an attack is required
                 {
-                    Attack(Current_Index, Move_Index, thescore);
+                    Attack(Current_Index, Move_Index, thescore); //carries out an attack interaction between the two units
                     success = true;
                 }
 
                 else
                 {
-                    Move_Units(Current_Index, Move_Index);
+                    Move_Units(Current_Index, Move_Index); //moves the unit into the new position
                     success = true;
                 }
             }
@@ -251,23 +254,23 @@ namespace NEA
             //Attacking unit wins
             if (Grid_List[Current_Index].Get_Strength() > Grid_List[Move_Index].Get_Strength())
             {
-                Grid_List[Move_Index].Killed();
-                thescore.add_point(Grid_List[Move_Index].Get_Team());
-                Move_Units(Current_Index, Move_Index);
+                Grid_List[Move_Index].Killed(); //destroys defending unit
+                thescore.add_point(Grid_List[Move_Index].Get_Team()); //add points to the team of the attacking unit
+                Move_Units(Current_Index, Move_Index); //moves the attacking unit to where the defending unit was
             }
 
             //Defending unit wins
             else if (Grid_List[Current_Index].Get_Strength() < Grid_List[Move_Index].Get_Strength())
             {
-                Grid_List[Move_Index].Defense_Success();
-                Grid_List[Current_Index].Attack_Loss();
+                Grid_List[Move_Index].Defense_Success(); //makes the change in the strength value after a successful defense
+                Grid_List[Current_Index].Attack_Loss(); //makes the change in the strength value after a failed attack 
             }
 
             //Draw
             else if (Grid_List[Current_Index].Get_Strength() == Grid_List[Move_Index].Get_Strength())
             {
-                Grid_List[Move_Index].Defense_Draw();
-                Grid_List[Current_Index].Attack_Draw();
+                Grid_List[Move_Index].Defense_Draw(); //
+                Grid_List[Current_Index].Attack_Draw(); //changes strength values accordingly
             }
         }
 

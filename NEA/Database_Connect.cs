@@ -16,18 +16,31 @@ namespace NEA
 
         public MySqlConnection Connect()
         { 
+            //attempts to create a new connection
             try
             {
-                MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder();
-                /*builder.Server = "192.168.1.73,3306";
+                /*MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder();
+                builder.Server = "";
                 builder.UserID = "client";
                 builder.Password = "Nu&PIO5yZD43DkZ#fx#0";
                 builder.Database = "NEA";*/
-                string connection_string = "Server = 192.168.1.73; Port = 3306; Database = NEA; Uid = client; Pwd = Nu&PIO5yZD43DkZ#fx#0;";
 
+                //these are the credentials to establish a connection to the server
+                string connection_string = "Server = 192.168.1.206; Port = 3306; Database = NEA; Uid = client; Pwd = test";
+
+                //starts the new connection using the given credentials
                 MySqlConnection connection = new MySqlConnection(connection_string);
                 return connection;
-                {}
+
+                /*MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder();
+                builder.DataSource = "DESKTOP-26UCP1R";
+                builder.UserID = "test";
+                builder.Password = "test";
+                builder.InitialCatalog = "NEA";
+
+                MySqlConnection connection = new MySqlConnection(builder.ConnectionString);
+                return connection;*/
+
             }
 
             catch (Exception error)

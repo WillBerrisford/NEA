@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NEA.AI">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAgAEAIgAgAAAAAAAAIAAAIEkgAEAAAAAIAAAA=</HashCode>
+      <FileName>AI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NEA.Account_Data">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAggAAAAAAQAAAAAACAAQAAAAAEAA=</HashCode>
+      <FileName>Account_Data.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NEA.Board_Grid">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAgAAAAAAIAAAIAUAAgAAEAAwIAAAAAACAAAAAAAABQ=</HashCode>
+      <FileName>Board_Grid.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NEA.Board_Grid_AI">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAgAAAAAAIAAAIAUAAgAAEAAwIAAAAAACAAAAAAAABQ=</HashCode>
+      <FileName>Board_Grid_AI.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NEA.Data_Save">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAgAAAAAAAASAAAgQAAAAAQAAEAAAAAACAAgCAgAA=</HashCode>
+      <FileName>Data_Save.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NEA.Database_Connect">
+    <Position X="0.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Database_Connect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NEA.DataView">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAACAEAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NEA.Flow_Control">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAgAAAAAAAAaAIAgQAAMgLggAEAgAAAACAAgCQgAA=</HashCode>
+      <FileName>Flow_Control.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NEA.Location">
+    <Position X="2.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgBAAAAAAAAAAAAAAAgEIAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Location.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NEA.Location_Score">
+    <Position X="4" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAgAAAAAAgAABAAAAEIAAAAAggAAAAAAAAAAAA=</HashCode>
+      <FileName>Location_Score.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NEA.MainWindow">
+    <Position X="5.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAACAAoAAEBBPAAIAAAEAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NEA.Salt_Hash">
+    <Position X="7.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAABAIAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Salt_Hash.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NEA.Save">
+    <Position X="0.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAACAAAAAAAAAAAEAAAAAAAAEBAABEAAAAAAAAAAAA=</HashCode>
+      <FileName>Save.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NEA.Score">
+    <Position X="7.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIBAAAAAAAAEgAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Score.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NEA.Squares">
+    <Position X="4" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAgAAiAAEAAQAAAAAIAAAAAAADAAAAAA=</HashCode>
+      <FileName>Squares.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NEA.System_Scoring">
+    <Position X="2.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAIAQAAAAAAACAAAAAAAAAAABE=</HashCode>
+      <FileName>System_Scoring.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NEA.Tree_Node">
+    <Position X="11" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAEAAAAAAAAgBgAACAAQAAMACAIAggsQAQAIAAIAQA=</HashCode>
+      <FileName>Tree_Node.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NEA.Unit">
+    <Position X="9.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAACggAEFCoAAIAAAQIAAAAAxAAIAAAIkAAIAAAIQIA=</HashCode>
+      <FileName>Unit.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NEA.Account">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABgCCCAAAKBAYAQAiAAEAAEwAAAAACCAESAAAAAEAA=</HashCode>
+      <FileName>Account.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="8.77" />
+</ClassDiagram>
