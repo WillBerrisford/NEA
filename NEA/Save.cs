@@ -185,6 +185,7 @@ namespace NEA
             {
                 //creates a new data object from the xml string
                 DataView Data = Deserialize(xml_string);
+                Data.Control.start_new_game();
                 return Data;
             }
             return null;

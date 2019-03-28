@@ -52,6 +52,11 @@ namespace NEA
             return thescore;
         }
 
+        public void start_new_game()
+        {
+            playing_game = true;
+        }
+
         //creates a new instance of the AI and the AI then makes a move on the board
         public AI AI_Move(Board_Grid thegrid, System_Scoring thesystem_score, Score thescore)
         {
