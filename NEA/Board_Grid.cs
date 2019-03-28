@@ -255,7 +255,7 @@ namespace NEA
             if (Grid_List[Current_Index].Get_Strength() > Grid_List[Move_Index].Get_Strength())
             {
                 Grid_List[Move_Index].Killed(); //destroys defending unit
-                thescore.add_point(Grid_List[Move_Index].Get_Team()); //add points to the team of the attacking unit
+                thescore.add_point(Grid_List[Current_Index].Get_Team()); //add points to the team of the attacking unit
                 Move_Units(Current_Index, Move_Index); //moves the attacking unit to where the defending unit was
             }
 
