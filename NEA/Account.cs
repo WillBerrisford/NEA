@@ -206,6 +206,13 @@ namespace NEA
                     //GameList = Name_List; //sets GameList equal to the contents of the observable collection
                     StringListGameName = Name_List_String; //sets the class attribute StringListGameName to the contents of the Name_List_String
                     Quicksort sorting = new Quicksort();
+
+                    if (StringListGameName == null)
+                    {
+                        GameList = new ObservableCollection<GameListDisplay>();
+                        return;
+                    }
+
                     StringListGameName = sorting.sort(StringListGameName); //sorts the strings using the quicksort algorithm
 
                     ObservableCollection<GameListDisplay> temp = new ObservableCollection<GameListDisplay>();
