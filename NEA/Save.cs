@@ -117,6 +117,7 @@ namespace NEA
                 {
                     Debug.WriteLine(error.ToString());
                 }
+                Data.theaccount.GetNumGames(UserName);
             }
 
             else

@@ -22,10 +22,38 @@ namespace NEA
         public ObservableCollection<GameListDisplay> GameList { get; set; }
         [XmlIgnoreAttribute]
         public LinkedList<string> StringListGameName { get; set; }
+        public string NumGames { get; set; }
 
         public Account()
         { }
-        
+
+        public void GetNumGames(string UserName)
+        {
+            string command_text = @"SELECT COUNT(GameName) FROM GameData WHERE GameUserID=(SELECT ID FROM Users_2 WHERE UserNames=@UserName)";
+
+            MySqlConnection connection = Connect();
+            try
+            {
+                MySqlCommand command = new MySqlCommand(command_text, connection); //creates the sql command
+                command.Parameters.AddWithValue("@UserName", UserName); //parameterized the sql command
+                connection.Open(); //opens the new connection
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    reader.Read();
+                    NumGames = reader.GetInt32(0).ToString();
+                }
+                NotifyPropertyChanged("NumGames");
+            }
+
+            //catches and records any connection errors
+            catch (Exception error)
+            {
+                Debug.WriteLine(error.ToString());
+                NumGames = "0";
+            }
+        }
+
         //signs a user into an existing account
         public void SignIn(string name, string password)
         {
@@ -64,6 +92,7 @@ namespace NEA
                 if (SignedIn == true)
                 {
                     Get_Game_List(name); //retrieves lists of saved games
+                    GetNumGames(name);
                 }
             }
             catch (Exception Error) //runs if there is an error with the operation
